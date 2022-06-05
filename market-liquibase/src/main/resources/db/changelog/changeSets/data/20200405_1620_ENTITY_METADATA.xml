@@ -49,7 +49,7 @@
         <insert schemaName="PUBLIC" tableName="TBX_S_ENTITY_METADATA">
             <column name="ID" value="57ef02b6-eed2-489d-a41b-584a5bdc970a"/>
             <column name="TABLE_NAME" value="product"/>
-            <column name="DESCRIPTION" value="Продукты"/>
+            <column name="DESCRIPTION" value="Продукт"/>
             <column name="FK_CONTAINER" value="25529bd7-7663-4998-9a04-90696481b12f"/>
         </insert>
 
