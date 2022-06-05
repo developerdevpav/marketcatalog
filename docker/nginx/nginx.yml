@@ -14,7 +14,6 @@ services:
         REPOSITORY_UI: ${REPOSITORY_UI}
         ENV_CLIENT: ${ENV_CLIENT}
     ports:
-      - "80:80"
-      - "443:443"
+      - "8088:8088"
     env_file:
       - ../.env
