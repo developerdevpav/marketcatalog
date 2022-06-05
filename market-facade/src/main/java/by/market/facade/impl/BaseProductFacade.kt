@@ -21,9 +21,10 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(entityService: IProductService<TEntity>,
-                                                                           mapper: MapstructMapper<TDto, TEntity>)
-    : IProductFacade<TDto>, AbstractFacade<IProductService<TEntity>, TDto, TEntity>(entityService, mapper) {
+open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(
+    entityService: IProductService<TEntity>,
+    mapper: MapstructMapper<TDto, TEntity>
+) : IProductFacade<TDto>, AbstractFacade<IProductService<TEntity>, TDto, TEntity>(entityService, mapper) {
 
     @Autowired
     private lateinit var categoryMapper: MapstructMapper<CategoryDTO, Category>
@@ -53,32 +54,36 @@ open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(entit
             val stringRes = stringCharacteristicTask.await()
 
             CharacteristicPairDTO(
-                    stringRes.map { CharacteristicDescriptionDTO(
-                            it.key.title!!,
-                            it.value.map { it.value!! }
-                        )
-                    },
-                    doubleRes.map { CharacteristicDescriptionDTO(
-                            it.key.title!!,
-                            it.value.map { it.value!! }
-                        )
-                    }
+                stringRes.map {
+                    CharacteristicDescriptionDTO(
+                        it.key.title!!,
+                        it.value.map { it.value!! }
+                    )
+                },
+                doubleRes.map {
+                    CharacteristicDescriptionDTO(
+                        it.key.title!!,
+                        it.value.map { it.value!! }
+                    )
+                }
             )
         }
     }
 
-    private fun <TVal, TCharacteristic: AbstractCharacteristic<TVal>> buildCharacteristicMap(characteristic: List<TCharacteristic>): Map<Characteristic, MutableList<TCharacteristic>> {
+    private fun <TVal, TCharacteristic : AbstractCharacteristic<TVal>> buildCharacteristicMap(characteristic: List<TCharacteristic>): Map<Characteristic, MutableList<TCharacteristic>> {
         val resMap = mutableMapOf<Characteristic, MutableList<TCharacteristic>>()
-        characteristic.forEach {
-            var characteristicMetadata = resMap[it.characteristic]
 
-            if(characteristicMetadata == null){
-                characteristicMetadata = mutableListOf()
-                resMap[it.characteristic!!] = characteristicMetadata
+        characteristic.stream()
+            .forEach {
+                var characteristicMetadata = resMap[it.characteristic]
+
+                if (characteristicMetadata == null) {
+                    characteristicMetadata = mutableListOf()
+                    resMap[it.characteristic!!] = characteristicMetadata
+                }
+
+                characteristicMetadata.add(it)
             }
-
-            characteristicMetadata.add(it)
-        }
 
         return resMap
     }
@@ -88,7 +93,8 @@ open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(entit
 
         val dtosByFilter = entitiesByFilter.map { mapper.toMap(it) }.toMutableList()
 
-        return ContentPage(dtosByFilter, entityService.countByFilter(productFilter, category), pageable.pageNumber, pageable.pageSize)
+        val countByFilter = entityService.countByFilter(productFilter, category)
+        return ContentPage(dtosByFilter, countByFilter, pageable.pageNumber, pageable.pageSize)
     }
 
 }
