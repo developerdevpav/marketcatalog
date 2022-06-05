@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CategoryRepository : BaseRepository<Category> {
 
-    fun findBySystemName(title: String): Category?
     fun findAllByParentCategory(category: Category): List<Category>
 
     fun countAllByParentCategory(category: Category): Long

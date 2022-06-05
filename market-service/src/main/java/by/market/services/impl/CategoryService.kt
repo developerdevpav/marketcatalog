@@ -61,16 +61,16 @@ open class CategoryService(val repository: CategoryRepository) : BaseSystemChara
             return null
         }
 
-        val treeCategory: TreeCategory = TreeCategory()
+        val treeCategory = TreeCategory()
 
         treeCategory.id = category.id
         treeCategory.title = category.title
 
         val optionalCategory = foundOptionalCategory.get()
 
-        val subCategories: Set<Category>? = optionalCategory.subCategories
+        val subCategories: Set<Category> = optionalCategory.subCategories
 
-        val setSubCategories = subCategories ?: mutableSetOf()
+        val setSubCategories = subCategories
 
         treeCategory.subcategory = setSubCategories.mapNotNull { buildRecursiveTree(it) }
                 .toMutableList()

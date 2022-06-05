@@ -13,7 +13,7 @@ class ProductCharacteristicValueFacade(private val productValueService: ProductV
     @Autowired
     private lateinit var characteristicValueMapper: CharacteristicValueMapper
 
-    public fun save(entity: AbstractCharacteristicDTO<Any>): AbstractCharacteristic<Any>? {
+    fun save(entity: AbstractCharacteristicDTO<Any>): AbstractCharacteristic<Any>? {
         val abstractCharacteristic = characteristicValueMapper.fromMap(entity)
         return productValueService.save(abstractCharacteristic)
     }

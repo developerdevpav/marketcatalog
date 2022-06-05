@@ -127,7 +127,8 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
         return predicates
     }
 
-    private fun <T> getSubqueryString(classQuery: Class<T>, characteristic: Characteristic?, filter: ProductFilterItem): Subquery<T>? {
+    private fun <T> getSubqueryString(classQuery: Class<T>, characteristic: Characteristic?,
+                                      filter: ProductFilterItem): Subquery<T>? {
         val subquery = createQuery.subquery(classQuery);
         val from = subquery.from(classQuery)
 
@@ -157,13 +158,13 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
                     val zero = 0.0
 
                     if (doubles.isNotEmpty()) {
-                        val fromDoubleTmp: Double? = doubles[0]
-                        var fromDouble: Double = fromDoubleTmp ?: zero
+                        val fromDoubleTmp: Double = doubles[0]
+                        var fromDouble: Double = fromDoubleTmp
 
                         var toDouble = Double.MAX_VALUE
                         if (doubles.size == 2) {
-                            val doubleTmp: Double? = doubles[1]
-                            toDouble = doubleTmp ?: toDouble
+                            val doubleTmp: Double = doubles[1]
+                            toDouble = doubleTmp
                         }
 
                         if (toDouble.compareTo(fromDouble) < zero) {

@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/units")
-open class UnitEntityResourceImpl(facade: UnitEntityFacade) : AbstractResource<UnitEntityDTO, UnitEntityFacade>(facade), UnitEntityResource {
+class UnitEntityResourceImpl(facade: UnitEntityFacade)
+    : AbstractResource<UnitEntityDTO, UnitEntityFacade>(facade), UnitEntityResource {
 
     @GetMapping("/value")
     override fun findByValue(@RequestParam("value") value: String?): ResponseEntity<UnitEntityDTO> =

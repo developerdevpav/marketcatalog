@@ -39,7 +39,9 @@ open class EntityMetadataService(repository: EntityMetadataRepository, private v
         var containerMetadata = entity.container
 
         if (containerMetadata != null) {
-            containerMetadata = if (containerMetadata.id == null) null else
+            containerMetadata = if (containerMetadata.id == null)
+                null
+            else
                 containerMetadataService.getReference(containerMetadata.id!!)
         }
 

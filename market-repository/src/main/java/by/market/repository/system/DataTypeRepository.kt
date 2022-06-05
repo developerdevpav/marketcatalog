@@ -5,6 +5,4 @@ import by.market.repository.BaseRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface DataTypeRepository : BaseRepository<DataType> {
-    fun findByName(name: String): DataType
-}
+interface DataTypeRepository : BaseRepository<DataType>

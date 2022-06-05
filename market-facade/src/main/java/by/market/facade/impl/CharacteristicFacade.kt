@@ -8,5 +8,7 @@ import by.market.services.impl.ProductCharacteristicService
 import org.springframework.stereotype.Component
 
 @Component
-class ProductCharacteristicFacade(productCharacteristicService: ProductCharacteristicService, productCharacteristicMapper: ProductCharacteristicMapper)
-    : AbstractFacade<ICharacteristicService<Characteristic>, ProductCharacteristicDTO, Characteristic>(productCharacteristicService, productCharacteristicMapper)
+class ProductCharacteristicFacade(productCharacteristicService: ProductCharacteristicService,
+                                  productCharacteristicMapper: ProductCharacteristicMapper)
+    : AbstractFacade<ICharacteristicService<Characteristic>, ProductCharacteristicDTO, Characteristic>
+    (productCharacteristicService, productCharacteristicMapper)

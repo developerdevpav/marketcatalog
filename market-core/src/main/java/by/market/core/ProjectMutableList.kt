@@ -3,6 +3,7 @@ package by.market.core
 class ProjectMutableList<TFrom, TTo>(private val inner: MutableList<TFrom>,
                                      private val mapperFromTo: (TFrom) -> TTo,
                                      private val mapperToFrom: (TTo) -> TFrom) : MutableList<TTo> {
+
     override val size: Int
         get() = inner.size
 
@@ -24,7 +25,8 @@ class ProjectMutableList<TFrom, TTo>(private val inner: MutableList<TFrom>,
 
     override fun add(index: Int, element: TTo) = inner.add(index, mapperToFrom(element))
 
-    override fun addAll(index: Int, elements: Collection<TTo>): Boolean = inner.addAll(index, elements.map(mapperToFrom))
+    override fun addAll(index: Int, elements: Collection<TTo>): Boolean =
+        inner.addAll(index, elements.map(mapperToFrom))
 
     override fun addAll(elements: Collection<TTo>): Boolean = inner.addAll(elements.map(mapperToFrom))
 

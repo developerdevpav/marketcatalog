@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-open class ProductCharacteristicService(repository: ProductCharacteristicRepository, private val dataTypeService: DataTypeService)
+open class ProductCharacteristicService(repository: ProductCharacteristicRepository,
+                                        private val dataTypeService: DataTypeService)
     : BaseCharacteristicService<Characteristic, ProductCharacteristicRepository>(repository) {
 
     @Transactional

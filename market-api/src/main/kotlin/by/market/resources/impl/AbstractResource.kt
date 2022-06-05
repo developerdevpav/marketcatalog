@@ -49,8 +49,8 @@ abstract class AbstractResource<TDTO, TFacade: Facade<TDTO>>(protected val facad
     }
 
     @DeleteMapping
-    override fun deleteList(@RequestBody ids: MutableList<UUID>): ResponseEntity<Unit> {
-        facade.delete(ids)
+    override fun deleteList(@RequestBody id: MutableList<UUID>): ResponseEntity<Unit> {
+        facade.delete(id)
 
         return ResponseEntity.ok().build()
     }

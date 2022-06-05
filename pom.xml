@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>asfor-parser</module>
         <module>market-core</module>
         <module>market-api</module>
         <module>market-dto</module>

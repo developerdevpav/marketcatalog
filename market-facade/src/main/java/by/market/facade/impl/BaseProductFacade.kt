@@ -21,7 +21,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(entityService: IProductService<TEntity>, mapper: MapstructMapper<TDto, TEntity>)
+open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(entityService: IProductService<TEntity>,
+                                                                           mapper: MapstructMapper<TDto, TEntity>)
     : IProductFacade<TDto>, AbstractFacade<IProductService<TEntity>, TDto, TEntity>(entityService, mapper) {
 
     @Autowired

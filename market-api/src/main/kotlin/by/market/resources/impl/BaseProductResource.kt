@@ -24,8 +24,8 @@ open class BaseProductResource<TDto: AbstractProductDTO, TProductFacade: IProduc
     }
 
     @GetMapping("/categories")
-    open fun findByCategories(categories: List<CategoryDTO>): ResponseEntity<Nothing?> {
-        return ResponseEntity.ok(null)
+    open fun findByCategories(categories: List<CategoryDTO>): ResponseEntity<List<CategoryDTO>> {
+        return ResponseEntity.ok(Collections.emptyList())
     }
 
     @GetMapping("/characteristic")

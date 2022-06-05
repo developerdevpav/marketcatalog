@@ -31,12 +31,14 @@ open class SwaggerConfig {
   }
 
   private fun metaData(): ApiInfo? {
+
+    val contact = Contact("Pavel Talaika", "https://github.com/devpavdeveloper", "devpavdeveloper@yandex.com")
     return ApiInfoBuilder()
       .title("API")
       .version("1.0.0")
       .license("Apache License Version 2.0")
       .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-      .contact(Contact("Pavel Talaika", "https://github.com/devpav", "devpavdeveloper@gmail.com"))
+      .contact(contact)
       .build()
   }
 

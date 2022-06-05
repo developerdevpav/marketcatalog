@@ -53,7 +53,7 @@ open class ProductValueService(private val productCharacteristicService: Product
 
                 valueDoubleUnion.product
 
-                val doubleObject: DoubleCharacteristic = DoubleCharacteristic()
+                val doubleObject = DoubleCharacteristic()
 
                 doubleObject.id = valueDoubleUnion.id
                 doubleObject.product = valueDoubleUnion.product
@@ -79,7 +79,9 @@ open class ProductValueService(private val productCharacteristicService: Product
         }
     }
 
-    private fun <T> buildValueUnion(value: T, characteristic: Characteristic, entityMetadata: EntityMetadata?, product: Product): AbstractCharacteristic<T> {
+    private fun <T> buildValueUnion(value: T, characteristic: Characteristic,
+                                    entityMetadata: EntityMetadata?,
+                                    product: Product): AbstractCharacteristic<T> {
         val abstractCharacteristic: AbstractCharacteristic<T> = AbstractCharacteristic()
 
         abstractCharacteristic.value = value

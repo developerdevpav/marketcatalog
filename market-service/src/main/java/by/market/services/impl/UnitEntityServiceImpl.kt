@@ -31,7 +31,7 @@ open class UnitEntityServiceImpl(unitEntityRepository: UnitEntityRepository) : B
         val unitEntity = rep.findById(treeUnit.id!!)
 
         if (unitEntity.isPresent) {
-            val treeUnitObject: TreeUnit = TreeUnit()
+            val treeUnitObject = TreeUnit()
 
             treeUnitObject.description = treeUnit.description
             treeUnitObject.value = treeUnit.value
