@@ -7,7 +7,7 @@
         <insert schemaName="PUBLIC" tableName="TBX_S_ENTITY_METADATA">
             <column name="ID" value="7933be4f-b392-4a2b-81fe-61df5d7f9cdd"/>
             <column name="TABLE_NAME" value="tbx_rb_unit"/>
-            <column name="DESCRIPTION" value="Единици измерения и группы измерений"/>
+            <column name="DESCRIPTION" value="Единицы измерений и группы измерений"/>
             <column name="FK_CONTAINER" value="36642cd8-c479-42bf-985c-cc78f7feacc6"/>
         </insert>
         <rollback>
