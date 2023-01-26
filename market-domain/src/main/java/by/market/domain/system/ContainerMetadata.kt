@@ -2,11 +2,10 @@ package by.market.domain.system
 
 import by.market.domain.BaseEntity
 import com.fasterxml.jackson.annotation.JsonBackReference
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.OneToMany
-import javax.persistence.Table
-
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 
 @Entity
 @Table(name = "TBX_S_CONTAINER_METADATA")

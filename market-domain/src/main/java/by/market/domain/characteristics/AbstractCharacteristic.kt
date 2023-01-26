@@ -3,7 +3,7 @@ package by.market.domain.characteristics
 import by.market.domain.BaseEntity
 import by.market.domain.Product
 import by.market.domain.system.EntityMetadata
-import javax.persistence.*
+import jakarta.persistence.*
 
 @MappedSuperclass
 open class AbstractCharacteristic<T> : BaseEntity() {

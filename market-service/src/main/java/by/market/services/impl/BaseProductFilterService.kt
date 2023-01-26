@@ -12,20 +12,21 @@ import by.market.domain.system.Category
 import by.market.repository.characteristic.ProductCharacteristicRepository
 import by.market.repository.system.CategoryRepository
 import by.market.services.BaseProductFilter
+import jakarta.annotation.PostConstruct
+import jakarta.persistence.EntityManager
+import jakarta.persistence.PersistenceContext
+import jakarta.persistence.TypedQuery
+import jakarta.persistence.criteria.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.transaction.annotation.Transactional
 import java.lang.reflect.ParameterizedType
 import java.util.*
-import javax.annotation.PostConstruct
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
-import javax.persistence.TypedQuery
-import javax.persistence.criteria.*
 
 abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TEntity> {
 
-    @PersistenceContext private lateinit var entityManager: EntityManager
+    @PersistenceContext
+    private lateinit var entityManager: EntityManager
 
     private lateinit var criteriaBuilder: CriteriaBuilder
     private lateinit var createQuery: CriteriaQuery<TEntity>
@@ -40,7 +41,8 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
     @Autowired private lateinit var productCharacteristicRepository: ProductCharacteristicRepository
 
 
-    @PostConstruct fun init() {
+    @PostConstruct
+    fun init() {
         val parameterizedType = this.javaClass.genericSuperclass as ParameterizedType
         this.classT = parameterizedType.actualTypeArguments[0] as Class<TEntity>
 

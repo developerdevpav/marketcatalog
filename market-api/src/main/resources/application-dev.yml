@@ -4,10 +4,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: dev
     password: dev
-    platform: h2
-
-    initialization-mode: never
-
     tomcat:
       initial-size: 1000
       max-wait: 20000
@@ -26,13 +22,21 @@ spring:
     console:
       enabled: true
 
-  profiles:
-    active: dev
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.xml
+  sql:
+    init:
+      platform: h2
+      mode: always
 
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+  show-actuator: true

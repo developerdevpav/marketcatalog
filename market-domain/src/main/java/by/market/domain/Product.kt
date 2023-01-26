@@ -4,7 +4,7 @@ import by.market.domain.characteristics.single.DoubleCharacteristic
 import by.market.domain.characteristics.single.StringCharacteristic
 import by.market.domain.system.Category
 import com.fasterxml.jackson.annotation.JsonBackReference
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(

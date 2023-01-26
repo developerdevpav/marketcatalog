@@ -1,7 +1,7 @@
 package by.market.domain.units
 
 import by.market.domain.BaseEntity
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "TBX_RB_UNIT")
