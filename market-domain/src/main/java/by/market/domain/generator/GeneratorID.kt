@@ -10,7 +10,7 @@ import java.util.*
 class GeneratorID : UUIDGenerator() {
 
     @Throws(HibernateException::class)
-    override fun generate(session: SharedSessionContractImplementor, obj: Any): Serializable {
+    override fun generate(session: SharedSessionContractImplementor, obj: Any): Any? {
         if (Objects.isNull(obj)) {
             throw HibernateException(NullPointerException())
         }

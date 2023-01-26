@@ -4,7 +4,7 @@ import by.market.domain.BaseEntity
 import by.market.domain.characteristics.single.DoubleCharacteristic
 import by.market.domain.characteristics.single.StringCharacteristic
 import com.fasterxml.jackson.annotation.JsonBackReference
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity(name = "TBX_S_ENTITY_METADATA")
 class EntityMetadata : BaseEntity() {

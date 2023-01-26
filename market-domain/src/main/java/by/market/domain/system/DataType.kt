@@ -3,9 +3,9 @@ package by.market.domain.system
 import by.market.domain.BaseEntity
 import by.market.domain.characteristics.Characteristic
 import com.fasterxml.jackson.annotation.JsonBackReference
-import javax.persistence.*
+import jakarta.persistence.*
 
-@Entity()
+@Entity
 @Table(name = "TBX_S_DATA_TYPE")
 class DataType : BaseEntity() {
 

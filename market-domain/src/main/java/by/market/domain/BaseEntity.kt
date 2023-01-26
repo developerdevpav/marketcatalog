@@ -2,12 +2,12 @@ package by.market.domain
 
 import by.market.domain.converters.DeserializerUUID
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import jakarta.persistence.Column
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
 import org.hibernate.annotations.GenericGenerator
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 open class BaseEntity {
@@ -17,8 +17,7 @@ open class BaseEntity {
     @GeneratedValue(generator = "useIdOrGenerate")
     @Column(name = "id", nullable = false, unique = true)
     @JsonDeserialize(using = DeserializerUUID::class)
-    var id: UUID? = null
-
+    open var id: UUID? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
