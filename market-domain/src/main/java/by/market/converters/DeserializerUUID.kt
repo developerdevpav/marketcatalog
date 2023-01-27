@@ -1,4 +1,4 @@
-package by.market.domain.converters
+package by.market.converters
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext

@@ -1,4 +1,4 @@
-package by.market.domain.generator
+package by.market.generator
 
 import by.market.domain.BaseEntity
 import org.hibernate.HibernateException
