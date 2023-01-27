@@ -15,22 +15,22 @@
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-dto</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-core</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-service</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-mapper</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

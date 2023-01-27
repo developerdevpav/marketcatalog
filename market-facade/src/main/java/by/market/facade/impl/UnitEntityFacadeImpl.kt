@@ -22,7 +22,7 @@ class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
 
 
     override fun findByValue(value: String?): UnitEntityDTO {
-        value ?: throw RequestInNotValidException("Value mustn't is NULL", HttpStatus.BAD_REQUEST)
+        value ?: throw RequestInNotValidException("Value mustn't is NULL", HttpStatus.BAD_REQUEST.value())
 
         val unitEntity: UnitEntity? = entityService.findByValue(value)
 

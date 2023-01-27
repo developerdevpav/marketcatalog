@@ -1,21 +1,19 @@
 package by.market.exception.database
 
-import org.springframework.http.HttpStatus
-
 interface DatabaseException {
 
     fun getMsg(): String
 
-    fun getCode(): HttpStatus
+    fun getCode(): Int
 
 }
 
 open class EntityNotFoundException(
         override val message: String,
-        private val code: HttpStatus = HttpStatus.NOT_FOUND
+        private val code: Int = 404
 ) : java.lang.RuntimeException(message), DatabaseException {
 
-    override fun getCode(): HttpStatus = code
+    override fun getCode(): Int = code
 
     override fun getMsg(): String = message
 
@@ -23,10 +21,10 @@ open class EntityNotFoundException(
 
 open class RequestInNotValidException(
         override val message: String,
-        private val code: HttpStatus = HttpStatus.BAD_REQUEST
+        private val code: Int = 400
 ) : java.lang.RuntimeException(message), DatabaseException {
 
-    override fun getCode(): HttpStatus = code
+    override fun getCode(): Int = code
 
     override fun getMsg(): String = message
 

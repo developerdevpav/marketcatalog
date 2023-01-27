@@ -23,20 +23,16 @@ abstract class AbstractResource<TDTO, TFacade: Facade<TDTO>>(protected val facad
 
     @GetMapping("/{id}")
     override fun findById(@PathVariable("id") id: UUID): ResponseEntity<TDTO> {
-        val entity = facade.findById(id)
-
-        if (!entity.isPresent) {
+        val entity = facade.findById(id).orElseThrow {
             throw EntityNotFoundException("Entity not found with id [${id}]");
         }
 
-        return ResponseEntity.ok(entity.get())
+        return ResponseEntity.ok(entity)
     }
 
     @PostMapping
     override fun save(@RequestBody entity: TDTO): ResponseEntity<TDTO> {
-        if (entity == null) {
-            throw RequestInNotValidException("Entity mustn't is NULL")
-        }
+        entity ?: throw RequestInNotValidException("Entity mustn't is NULL")
 
         return ResponseEntity.ok(facade.save(entity))
     }
