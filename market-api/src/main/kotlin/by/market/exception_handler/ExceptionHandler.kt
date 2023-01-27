@@ -17,7 +17,7 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     fun handler(databaseException: DatabaseException, request: WebRequest): ResponseEntity<ExceptionWrapper> {
         return ResponseEntity
                 .status(databaseException.getCode())
-                .body(ExceptionWrapper(Date(), databaseException.getMsg(), databaseException.getCode().value()))
+                .body(ExceptionWrapper(Date(), databaseException.getMsg(), databaseException.getCode()))
     }
 
     data class ExceptionWrapper(val time: Date, val message: String, val code: Int)

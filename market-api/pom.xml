@@ -15,7 +15,6 @@
 
     <properties>
         <finalName>marketcatalog</finalName>
-        <spring.version>2.2.1.RELEASE</spring.version>
         <main.class>by.market.CatalogMarket</main.class>
         <jackson.kotlin.version>2.10.0</jackson.kotlin.version>
         <h2.version>1.4.200</h2.version>
@@ -23,53 +22,54 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-        <swagger.version>3.0.0</swagger.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-exception</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-domain</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-dto</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-facade</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>by.market</groupId>
-            <artifactId>market-liquibase</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <version>2.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-exception</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-liquibase</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
     </dependencies>
 
