@@ -1,6 +1,6 @@
 package by.market.services.impl
 
-import by.market.domain.nosql.TreeCategory
+import by.market.nosql.TreeCategory
 import by.market.domain.system.Category
 import by.market.repository.system.CategoryRepository
 import org.springframework.stereotype.Service

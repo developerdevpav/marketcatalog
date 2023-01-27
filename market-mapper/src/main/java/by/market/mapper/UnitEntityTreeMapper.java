@@ -1,6 +1,6 @@
 package by.market.mapper;
 
-import by.market.domain.nosql.TreeUnit;
+import by.market.nosql.TreeUnit;
 import by.market.dto.TreeUnitDTO;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package by.market.domain
 
-import by.market.domain.converters.DeserializerUUID
+import by.market.converters.DeserializerUUID
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import jakarta.persistence.Column
 import jakarta.persistence.GeneratedValue
@@ -13,7 +13,7 @@ import java.util.*
 open class BaseEntity {
 
     @Id
-    @GenericGenerator(name = "useIdOrGenerate", strategy = "by.market.domain.generator.GeneratorID")
+    @GenericGenerator(name = "useIdOrGenerate", strategy = "by.market.generator.GeneratorID")
     @GeneratedValue(generator = "useIdOrGenerate")
     @Column(name = "id", nullable = false, unique = true)
     @JsonDeserialize(using = DeserializerUUID::class)

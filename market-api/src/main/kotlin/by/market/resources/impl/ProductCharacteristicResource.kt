@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/product-characteristic")
-class ProductCharacteristicResource(facade: ProductCharacteristicFacade) : AbstractResource<ProductCharacteristicDTO, ProductCharacteristicFacade>(facade){
+class ProductCharacteristicResource(facade: ProductCharacteristicFacade) :
+    AbstractResource<ProductCharacteristicDTO, ProductCharacteristicFacade>(facade) {
 
-    @Autowired private lateinit var productCharacteristicValueFacade: ProductCharacteristicValueFacade
-
+    @Autowired
+    private lateinit var productCharacteristicValueFacade: ProductCharacteristicValueFacade
 
     @PostMapping("/value")
     fun saveCharacteristicValue(@RequestBody abstractCharacteristicDTO: AbstractCharacteristicDTO<Any>): ResponseEntity<AbstractCharacteristic<Any>?> {

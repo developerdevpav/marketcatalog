@@ -1,4 +1,4 @@
-package by.market.domain.nosql
+package by.market.nosql
 
 import java.util.*
 
