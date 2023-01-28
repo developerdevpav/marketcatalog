@@ -1,16 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:catalog
-    driver-class-name: org.h2.Driver
-    username: dev
-    password: dev
-    tomcat:
-      initial-size: 1000
-      max-wait: 20000
-      max-active: 100
-      max-age: 50
-      max-idle: 25
-      default-auto-commit: true
+  profiles:
+    active: dev
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     properties:
@@ -18,13 +9,16 @@ spring:
         format_sql: true
         use_sql_comments: true
 
+  datasource:
+    url: jdbc:h2:mem:catalog
+    driver-class-name: org.h2.Driver
+    username: dev
+    password: dev
+
   h2:
     console:
       enabled: true
 
-  liquibase:
-    enabled: true
-    change-log: classpath:/db/changelog/changelog-master.xml
   sql:
     init:
       platform: h2
@@ -34,9 +28,3 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    path: /swagger-ui.html
-  show-actuator: true

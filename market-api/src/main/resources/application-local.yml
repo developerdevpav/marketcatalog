@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: local
+
   jpa:
     show-sql: false
     hibernate:
@@ -14,20 +17,7 @@ spring:
     username: marketcatalog
     password: 5beeb33935c448a2828a3a043a4be7f4
 
-    tomcat:
-      initial-size: 1000
-      max-wait: 20000
-      max-active: 100
-      max-age: 50
-      max-idle: 25
-      default-auto-commit: true
-
-    data: classpath:data.sql
-    initialization-mode: never
-
-  profiles:
-    active: local
-
-  liquibase:
-    enabled: true
-    change-log: classpath:/db/changelog/changelog-master.xml
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql

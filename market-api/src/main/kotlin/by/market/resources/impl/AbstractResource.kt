@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-abstract class AbstractResource<TDTO, TFacade: Facade<TDTO>>(protected val facade: TFacade) : MutableResource<TDTO>, IReadonlyResource<TDTO> {
+abstract class AbstractResource<TDTO, TFacade : Facade<TDTO>>(protected val facade: TFacade) : MutableResource<TDTO>,
+    IReadonlyResource<TDTO> {
 
     @GetMapping
     override fun findAll(): ResponseEntity<MutableList<TDTO>> {

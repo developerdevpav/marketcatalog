@@ -17,14 +17,14 @@ class UnitEntityResourceImpl(facade: UnitEntityFacade)
 
     @GetMapping("/value")
     override fun findByValue(@RequestParam("value") value: String?): ResponseEntity<UnitEntityDTO> =
-            ResponseEntity.ok(facade.findByValue(value))
+        ResponseEntity.ok(facade.findByValue(value))
 
     @GetMapping("/tree")
     override fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitDTO>> =
-            ResponseEntity.ok(facade.findUnitsTree())
+        ResponseEntity.ok(facade.findUnitsTree())
 
     @GetMapping("/groups")
     override fun findGroups(): ResponseEntity<MutableList<UnitEntityDTO>> =
-            ResponseEntity.ok(facade.findGroups())
+        ResponseEntity.ok(facade.findGroups())
 
 }
