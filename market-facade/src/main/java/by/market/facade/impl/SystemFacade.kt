@@ -4,8 +4,8 @@ import by.market.domain.system.Category
 import by.market.domain.system.ContainerMetadata
 import by.market.domain.system.DataType
 import by.market.domain.system.EntityMetadata
-import by.market.dto.TreeCategoryDTO
-import by.market.dto.system.*
+import by.market.records.TreeCategoryRecord
+import by.market.records.system.*
 import by.market.mapper.*
 import by.market.services.impl.CategoryService
 import by.market.services.impl.ContainerMetadataService
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Component
 class CategoryProductFacade(
         categoryService: CategoryService,
         categoryMapper: CategoryMapper
-) : BaseSystemFacade<CategoryDTO, Category, CategoryService>(categoryService, categoryMapper) {
+) : BaseSystemFacade<CategoryRecord, Category, CategoryService>(categoryService, categoryMapper) {
 
     @Autowired
     private lateinit var treeCategoryMapper: TreeCategoryMapper
 
-    fun findByParent(category: CategoryDTO): ContentPage<CategoryDTO> {
+    fun findByParent(category: CategoryRecord): ContentPage<CategoryRecord> {
         val databaseCategory = mapper.fromMap(category)
 
         val findAllByParentCategory = entityService.findAllByParentCategory(databaseCategory)
@@ -33,7 +33,7 @@ class CategoryProductFacade(
         return ContentPage(collectionDTO, length)
     }
 
-    fun findTreeCategories(): MutableList<TreeCategoryDTO> {
+    fun findTreeCategories(): MutableList<TreeCategoryRecord> {
         return treeCategoryMapper.toMap(entityService.findTreeCategory()).toMutableList()
     }
 }
@@ -43,16 +43,16 @@ class CategoryProductFacade(
 class ContainerMetadataFacade(
         containerMetadataService: ContainerMetadataService,
         containerMetadataMapper: ContainerMetadataMapper
-): BaseSystemFacade<ContainerMetadataDTO, ContainerMetadata, ContainerMetadataService>(containerMetadataService, containerMetadataMapper)
+): BaseSystemFacade<ContainerMetadataRecord, ContainerMetadata, ContainerMetadataService>(containerMetadataService, containerMetadataMapper)
 
 @Component
 class EntityMetadataFacade(
         entityMetadataService: EntityMetadataService,
         entityMetadataMapper: EntityMetadataMapper
-) : BaseSystemFacade<EntityMetadataDTO, EntityMetadata, EntityMetadataService>(entityMetadataService, entityMetadataMapper)
+) : BaseSystemFacade<EntityMetadataRecord, EntityMetadata, EntityMetadataService>(entityMetadataService, entityMetadataMapper)
 
 @Component
 class DataTypeFacade(
         dataTypeService: DataTypeService,
         dataTypeMapper: DataTypeMapper
-): BaseSystemFacade<DataTypeDTO, DataType, DataTypeService>(dataTypeService, dataTypeMapper)
+): BaseSystemFacade<DataTypeRecord, DataType, DataTypeService>(dataTypeService, dataTypeMapper)

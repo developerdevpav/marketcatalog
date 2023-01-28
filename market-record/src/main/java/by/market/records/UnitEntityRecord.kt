@@ -1,8 +1,8 @@
-package by.market.dto
+package by.market.records
 
 import java.util.*
 
-class UnitEntityDTO : BaseEntityDTO() {
+class UnitEntityRecord : BaseEntityRecord() {
 
     var value: String? = null
     var unitGroup: UUID? = null

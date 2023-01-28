@@ -1,8 +1,8 @@
 package by.market.facade.impl
 
 import by.market.domain.units.UnitEntity
-import by.market.dto.TreeUnitDTO
-import by.market.dto.UnitEntityDTO
+import by.market.records.TreeUnitRecord
+import by.market.records.UnitEntityRecord
 import by.market.exception.database.EntityNotFoundException
 import by.market.exception.database.RequestInNotValidException
 import by.market.facade.UnitEntityFacade
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component
 
 @Component
 class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
-    : AbstractFacade<UnitEntityService, UnitEntityDTO, UnitEntity>(service, mapper), UnitEntityFacade {
+    : AbstractFacade<UnitEntityService, UnitEntityRecord, UnitEntity>(service, mapper), UnitEntityFacade {
 
     @Autowired
     private lateinit var unitEntityTreeMapper: UnitEntityTreeMapper
 
 
-    override fun findByValue(value: String?): UnitEntityDTO {
+    override fun findByValue(value: String?): UnitEntityRecord {
         value ?: throw RequestInNotValidException("Value mustn't is NULL", HttpStatus.BAD_REQUEST.value())
 
         val unitEntity: UnitEntity? = entityService.findByValue(value)
@@ -31,13 +31,13 @@ class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
         return mapper.toMap(unitEntity)
     }
 
-    override fun findUnitsTree(): MutableList<TreeUnitDTO> {
+    override fun findUnitsTree(): MutableList<TreeUnitRecord> {
         val unitsTree = entityService.findUnitsTree()
 
         return unitEntityTreeMapper.toMap(unitsTree).toMutableList()
     }
 
-    override fun findGroups(): MutableList<UnitEntityDTO> {
+    override fun findGroups(): MutableList<UnitEntityRecord> {
         val findGroupUnits = entityService.findGroupUnits()
         return mapper.toMap(findGroupUnits).toMutableList()
     }

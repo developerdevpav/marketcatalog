@@ -1,9 +1,9 @@
-package by.market.dto
+package by.market.records
 
 import java.util.*
 
 
-open class AbstractProductDTO : BaseEntityDTO() {
+open class AbstractProductRecord : BaseEntityRecord() {
 
     var priceValue: Int? = null
 

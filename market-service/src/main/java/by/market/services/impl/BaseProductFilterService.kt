@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.lang.reflect.ParameterizedType
 import java.util.*
 
-abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TEntity> {
+abstract class BaseProductFilterService<TEntity : Product> : BaseProductFilter<TEntity> {
 
     @PersistenceContext
     private lateinit var entityManager: EntityManager
@@ -34,11 +34,14 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
 
     private lateinit var classT: Class<TEntity>
 
-    @Autowired private lateinit var categoryService: CategoryService
+    @Autowired
+    private lateinit var categoryService: CategoryService
 
-    @Autowired private lateinit var categoryRepository: CategoryRepository
+    @Autowired
+    private lateinit var categoryRepository: CategoryRepository
 
-    @Autowired private lateinit var productCharacteristicRepository: ProductCharacteristicRepository
+    @Autowired
+    private lateinit var productCharacteristicRepository: ProductCharacteristicRepository
 
 
     @PostConstruct
@@ -57,7 +60,7 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
         val predicates = collectPredicateByFilter(filter, category)
 
         val query = createQuery.select(root)
-                .where(*predicates.toTypedArray())
+            .where(*predicates.toTypedArray())
 
         val result: TypedQuery<TEntity> = entityManager.createQuery(query)
 
@@ -73,7 +76,7 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
         val criteriaQuery: CriteriaQuery<Long> = criteriaBuilder.createQuery(Long::class.java)
 
         val select = criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(classT)))
-                .where(*predicates.toTypedArray())
+            .where(*predicates.toTypedArray())
 
         return entityManager.createQuery(select).singleResult
     }
@@ -82,7 +85,7 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
     private fun collectPredicateByFilter(filter: ProductFilter, category: UUID): MutableList<Predicate> {
         val predicates: MutableList<Predicate> = mutableListOf()
 
-        val entityCategory = categoryRepository.getOne(category) ?: return mutableListOf()
+        val entityCategory = categoryRepository.getReferenceById(category) ?: return mutableListOf()
 
         val rootCategory = categoryService.findRootCategory(entityCategory.id!!) ?: return mutableListOf()
 
@@ -129,8 +132,11 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
         return predicates
     }
 
-    private fun <T> getSubqueryString(classQuery: Class<T>, characteristic: Characteristic?,
-                                      filter: ProductFilterItem): Subquery<T>? {
+    private fun <T> getSubqueryString(
+        classQuery: Class<T>,
+        characteristic: Characteristic?,
+        filter: ProductFilterItem
+    ): Subquery<T>? {
         val subquery = createQuery.subquery(classQuery);
         val from = subquery.from(classQuery)
 
@@ -180,8 +186,8 @@ abstract class BaseProductFilterService<TEntity: Product> : BaseProductFilter<TE
         }
 
         return subquery
-                .select(from)
-                .where(equalFieldCharacteristic, equalFieldProductId, inValues)
+            .select(from)
+            .where(equalFieldCharacteristic, equalFieldProductId, inValues)
     }
 
 

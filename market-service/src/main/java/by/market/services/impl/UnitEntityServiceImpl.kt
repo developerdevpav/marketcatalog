@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional
 open class UnitEntityServiceImpl(unitEntityRepository: UnitEntityRepository) : BaseService<UnitEntity,
         UnitEntityRepository>(unitEntityRepository), UnitEntityService {
 
-    override fun findByValue(value: String?): UnitEntity? = rep.findByValue(value)
+    override fun findByValue(value: String?): UnitEntity? = repository.findByValue(value)
 
     @Transactional(readOnly = true)
-    open override fun findUnitsTree(): MutableList<TreeUnit> {
-        val rootGroups: MutableList<UnitEntity>? = rep.findByUnitGroupIsNull()
+    override fun findUnitsTree(): MutableList<TreeUnit> {
+        val rootGroups: MutableList<UnitEntity>? = repository.findByUnitGroupIsNull()
 
         return if (rootGroups.isNullOrEmpty())
             mutableListOf()
@@ -24,11 +24,11 @@ open class UnitEntityServiceImpl(unitEntityRepository: UnitEntityRepository) : B
     }
 
     override fun findGroupUnits(): MutableList<UnitEntity> {
-        return rep.findByUnitGroupIsNull() ?: mutableListOf()
+        return repository.findByUnitGroupIsNull() ?: mutableListOf()
     }
 
     private fun getRecursionTree(treeUnit: UnitEntity): TreeUnit? {
-        val unitEntity = rep.findById(treeUnit.id!!)
+        val unitEntity = repository.findById(treeUnit.id!!)
 
         if (unitEntity.isPresent) {
             val treeUnitObject = TreeUnit()

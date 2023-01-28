@@ -1,7 +1,7 @@
 package by.market.resources.impl
 
-import by.market.dto.TreeCategoryDTO
-import by.market.dto.system.*
+import by.market.records.TreeCategoryRecord
+import by.market.records.system.*
 import by.market.facade.impl.CategoryProductFacade
 import by.market.facade.impl.ContainerMetadataFacade
 import by.market.facade.impl.DataTypeFacade
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/category")
-class CategoryResource(facade: CategoryProductFacade) : AbstractResource<CategoryDTO, CategoryProductFacade>(facade) {
+class CategoryResource(facade: CategoryProductFacade) : AbstractResource<CategoryRecord, CategoryProductFacade>(facade) {
 
     @GetMapping("/parent")
-    fun findByParent(categoryDTO: CategoryDTO): ResponseEntity<ContentPage<CategoryDTO>> =
+    fun findByParent(categoryDTO: CategoryRecord): ResponseEntity<ContentPage<CategoryRecord>> =
         ResponseEntity.ok(facade.findByParent(categoryDTO))
 
     @GetMapping("/tree")
-    fun findTreeCategory(): ResponseEntity<MutableList<TreeCategoryDTO>> =
+    fun findTreeCategory(): ResponseEntity<MutableList<TreeCategoryRecord>> =
         ResponseEntity.ok(facade.findTreeCategories())
 
 }
@@ -28,14 +28,14 @@ class CategoryResource(facade: CategoryProductFacade) : AbstractResource<Categor
 @RestController
 @RequestMapping("/api/container-metadata")
 class ContainerMetadataResource(facade: ContainerMetadataFacade) :
-    AbstractResource<ContainerMetadataDTO, ContainerMetadataFacade>(facade)
+    AbstractResource<ContainerMetadataRecord, ContainerMetadataFacade>(facade)
 
 @RestController
 @RequestMapping("/api/data-type")
-class DataTypeResource(facade: DataTypeFacade) : AbstractResource<DataTypeDTO, DataTypeFacade>(facade)
+class DataTypeResource(facade: DataTypeFacade) : AbstractResource<DataTypeRecord, DataTypeFacade>(facade)
 
 @RestController
 @RequestMapping("/api/entity-metadata")
 class EntityMetadataResource(service: EntityMetadataFacade) :
-    AbstractResource<EntityMetadataDTO, EntityMetadataFacade>(service)
+    AbstractResource<EntityMetadataRecord, EntityMetadataFacade>(service)
 
