@@ -8,16 +8,18 @@ import by.market.facade.impl.DataTypeFacade
 import by.market.facade.impl.EntityMetadataFacade
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 
 @RestController
 @RequestMapping("/api/category")
 class CategoryResource(facade: CategoryProductFacade) : AbstractResource<CategoryRecord, CategoryProductFacade>(facade) {
 
-    @GetMapping("/parent")
-    fun findByParent(categoryDTO: CategoryRecord): ResponseEntity<ContentPage<CategoryRecord>> =
-        ResponseEntity.ok(facade.findByParent(categoryDTO))
+    @GetMapping("/parent/{id}")
+    fun findByParent(@PathVariable("id") id: UUID): ResponseEntity<ContentPage<CategoryRecord>> =
+        ResponseEntity.ok(facade.findByParent(id))
 
     @GetMapping("/tree")
     fun findTreeCategory(): ResponseEntity<MutableList<TreeCategoryRecord>> =

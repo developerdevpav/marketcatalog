@@ -89,7 +89,7 @@ abstract class BaseProductFilterService<TEntity : Product> : BaseProductFilter<T
 
         val rootCategory = categoryService.findRootCategory(entityCategory.id!!) ?: return mutableListOf()
 
-        val categories = categoryService.findAllByParentCategory(rootCategory)
+        val categories = categoryService.findAllByParentCategory(rootCategory.id!!)
 
         val mutableListOf = mutableListOf(*categories.toTypedArray())
 
@@ -137,7 +137,7 @@ abstract class BaseProductFilterService<TEntity : Product> : BaseProductFilter<T
         characteristic: Characteristic?,
         filter: ProductFilterItem
     ): Subquery<T>? {
-        val subquery = createQuery.subquery(classQuery);
+        val subquery = createQuery.subquery(classQuery)
         val from = subquery.from(classQuery)
 
         val fieldCharacteristic = from.get<Characteristic>("productCharacteristic")

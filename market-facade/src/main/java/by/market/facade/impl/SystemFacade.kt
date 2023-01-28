@@ -13,6 +13,7 @@ import by.market.services.impl.DataTypeService
 import by.market.services.impl.EntityMetadataService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class CategoryProductFacade(
@@ -23,14 +24,13 @@ class CategoryProductFacade(
     @Autowired
     private lateinit var treeCategoryMapper: TreeCategoryMapper
 
-    fun findByParent(category: CategoryRecord): ContentPage<CategoryRecord> {
-        val databaseCategory = mapper.fromMap(category)
+    fun findByParent(id: UUID): ContentPage<CategoryRecord> {
+        val categories = entityService.findAllByParentCategory(id)
+        val length = entityService.countAllByParentCategory(id)
 
-        val findAllByParentCategory = entityService.findAllByParentCategory(databaseCategory)
-        val length = entityService.countAllByParentCategory(databaseCategory)
+        val categoryRecords = mapper.toMap(categories).toMutableList()
 
-        val collectionDTO = mapper.toMap(findAllByParentCategory).toMutableList()
-        return ContentPage(collectionDTO, length)
+        return ContentPage(categoryRecords, length)
     }
 
     fun findTreeCategories(): MutableList<TreeCategoryRecord> {
