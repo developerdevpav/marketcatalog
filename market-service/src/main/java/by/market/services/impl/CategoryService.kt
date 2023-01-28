@@ -21,13 +21,14 @@ open class CategoryService(rep: CategoryRepository) :
     override fun save(entity: Category): Category {
         entity.subCategories = mutableSetOf()
 
-        val parentCategory = entity.parentCategory
+        val parentCategoryId = entity.parentCategory?.id
 
-        if (parentCategory !== null) {
-            entity.parentCategory = if (parentCategory.id == null)
-                null
-            else
-                repository.getReferenceById(parentCategory.id!!)
+        entity.parentCategory = if (parentCategoryId == null)
+            null
+        else findById(parentCategoryId).orElseThrow {
+            val message = "Parent category not found [parent = ${entity.parentCategory?.id}]"
+
+            by.market.exception.database.EntityNotFoundException(message)
         }
 
         return repository.save(entity)
