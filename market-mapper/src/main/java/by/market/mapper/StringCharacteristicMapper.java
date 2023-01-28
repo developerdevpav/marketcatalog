@@ -1,21 +1,21 @@
 package by.market.mapper;
 
 import by.market.domain.characteristics.single.StringCharacteristic;
-import by.market.dto.characteristics.StringCharacteristicDTO;
+import by.market.records.characteristics.StringCharacteristicRecord;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapperConfiguration.class)
-public interface StringCharacteristicMapper extends MapstructMapper<StringCharacteristicDTO, StringCharacteristic> {
+public interface StringCharacteristicMapper extends MapstructMapper<StringCharacteristicRecord, StringCharacteristic> {
 
     @Override
     @Mapping(source = "characteristic.id", target = "characteristic")
     @Mapping(source = "product.id", target = "product")
-    StringCharacteristicDTO toMap(StringCharacteristic objectAbstractCharacteristic);
+    StringCharacteristicRecord toMap(StringCharacteristic objectAbstractCharacteristic);
 
     @Override
     @InheritInverseConfiguration
-    StringCharacteristic fromMap(StringCharacteristicDTO objectAbstractCharacteristicDTO);
+    StringCharacteristic fromMap(StringCharacteristicRecord objectAbstractCharacteristicDTO);
 
 }

@@ -1,12 +1,15 @@
-package by.market.dto
+package by.market.records
 
 import java.util.*
 
-class TreeUnitDTO {
+class TreeUnitRecord {
 
     var id: UUID? = null
+
     var value: String? = null
+
     var description: String? = null
-    var subunits: List<TreeUnitDTO> = mutableListOf()
+
+    var subunits: List<TreeUnitRecord> = mutableListOf()
 
 }

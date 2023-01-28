@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-open class CategoryService(val repository: CategoryRepository) : BaseSystemCharacteristicService<Category, CategoryRepository>(repository) {
+open class CategoryService(private val rep: CategoryRepository) : BaseSystemCharacteristicService<Category, CategoryRepository>(rep) {
 
     fun findAllByParentCategory(category: Category): List<Category> = rep.findAllByParentCategory(category)
 
@@ -22,7 +22,7 @@ open class CategoryService(val repository: CategoryRepository) : BaseSystemChara
 
         if (parentCategory !== null) {
             entity.parentCategory =
-                    if (parentCategory.id == null) null else rep.getOne(parentCategory.id!!)
+                    if (parentCategory.id == null) null else rep.getReferenceById(parentCategory.id!!)
         }
 
         return rep.save(entity)
@@ -31,17 +31,15 @@ open class CategoryService(val repository: CategoryRepository) : BaseSystemChara
     fun findRootCategory(idCategory: UUID): Category? {
         val category = rep.findById(idCategory)
 
-        if (category.isPresent) {
-            val currentCategory = category.get()
-            val parentCategory = currentCategory.parentCategory
+        if (category.isEmpty) return null
 
-            if (parentCategory?.id == null || currentCategory.id == parentCategory.id)
-                return currentCategory
+        val currentCategory = category.get()
+        val parentCategory = currentCategory.parentCategory
 
-            return findRootCategory(parentCategory.id!!)
-        }
+        if (parentCategory?.id == null || currentCategory.id == parentCategory.id)
+            return currentCategory
 
-        return null
+        return this.findRootCategory(parentCategory.id!!)
     }
 
     @Transactional(readOnly = true)
@@ -55,7 +53,7 @@ open class CategoryService(val repository: CategoryRepository) : BaseSystemChara
 
         id ?: return null
 
-        val foundOptionalCategory = repository.findById(id)
+        val foundOptionalCategory = rep.findById(id)
 
         if (!foundOptionalCategory.isPresent) {
             return null

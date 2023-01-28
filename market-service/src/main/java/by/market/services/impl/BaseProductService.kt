@@ -12,7 +12,7 @@ abstract class BaseProductService<TEntity : Product,
     BaseService<TEntity, TRepository>(repository), IProductService<TEntity> {
 
     override fun findAllByCategory(category: Category?, pageable: Pageable): Page<TEntity> {
-        return rep.findAllByCategory(category, pageable)
+        return repository.findAllByCategory(category, pageable)
     }
 
 }

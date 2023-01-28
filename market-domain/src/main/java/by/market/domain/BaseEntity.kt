@@ -1,7 +1,5 @@
 package by.market.domain
 
-import by.market.converters.DeserializerUUID
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import jakarta.persistence.Column
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -13,10 +11,12 @@ import java.util.*
 open class BaseEntity {
 
     @Id
-    @GenericGenerator(name = "useIdOrGenerate", strategy = "by.market.generator.GeneratorID")
-    @GeneratedValue(generator = "useIdOrGenerate")
-    @Column(name = "id", nullable = false, unique = true)
-    @JsonDeserialize(using = DeserializerUUID::class)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
     open var id: UUID? = null
 
     override fun equals(other: Any?): Boolean {

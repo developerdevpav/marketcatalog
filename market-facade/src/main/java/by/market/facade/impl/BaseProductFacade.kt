@@ -5,11 +5,11 @@ import by.market.domain.Product
 import by.market.domain.characteristics.AbstractCharacteristic
 import by.market.domain.characteristics.Characteristic
 import by.market.domain.system.Category
-import by.market.dto.AbstractProductDTO
-import by.market.dto.characteristics.CharacteristicDescriptionDTO
-import by.market.dto.characteristics.CharacteristicPairDTO
-import by.market.dto.system.CategoryDTO
-import by.market.dto.system.ContentPage
+import by.market.records.AbstractProductRecord
+import by.market.records.characteristics.CharacteristicDescriptionRecord
+import by.market.records.characteristics.CharacteristicPairRecord
+import by.market.records.system.CategoryRecord
+import by.market.records.system.ContentPage
 import by.market.facade.IProductFacade
 import by.market.mapper.MapstructMapper
 import by.market.services.IProductService
@@ -21,13 +21,13 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(
+open class BaseProductFacade<TDto : AbstractProductRecord, TEntity : Product>(
     entityService: IProductService<TEntity>,
     mapper: MapstructMapper<TDto, TEntity>
 ) : IProductFacade<TDto>, AbstractFacade<IProductService<TEntity>, TDto, TEntity>(entityService, mapper) {
 
     @Autowired
-    private lateinit var categoryMapper: MapstructMapper<CategoryDTO, Category>
+    private lateinit var categoryMapper: MapstructMapper<CategoryRecord, Category>
 
     @Autowired
     private lateinit var categoryService: CategoryService
@@ -35,12 +35,12 @@ open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(
     override fun findByCategory(category: UUID, pageable: Pageable): Page<TDto> {
         val referenceCategory = categoryService.getReference(category)
 
-        val page = entityService.findAllByCategory(referenceCategory, pageable);
+        val page = entityService.findAllByCategory(referenceCategory, pageable)
 
         return page.map { mapper.toMap(it) }
     }
 
-    override fun findCharacteristicByProduct(product: TDto): CharacteristicPairDTO {
+    override fun findCharacteristicByProduct(product: TDto): CharacteristicPairRecord {
         return runBlocking {
             val doubleCharacteristicTask = async {
                 buildCharacteristicMap(entityService.findDoubleCharacteristicById(product.id!!))
@@ -53,15 +53,15 @@ open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(
             val doubleRes = doubleCharacteristicTask.await()
             val stringRes = stringCharacteristicTask.await()
 
-            CharacteristicPairDTO(
+            CharacteristicPairRecord(
                 stringRes.map {
-                    CharacteristicDescriptionDTO(
+                    CharacteristicDescriptionRecord(
                         it.key.title!!,
                         it.value.map { it.value!! }
                     )
                 },
                 doubleRes.map {
-                    CharacteristicDescriptionDTO(
+                    CharacteristicDescriptionRecord(
                         it.key.title!!,
                         it.value.map { it.value!! }
                     )
@@ -91,10 +91,11 @@ open class BaseProductFacade<TDto : AbstractProductDTO, TEntity : Product>(
     override fun findByFilter(productFilter: ProductFilter, category: UUID, pageable: Pageable): ContentPage<TDto> {
         val entitiesByFilter = this.entityService.findByFilter(productFilter, category, pageable)
 
-        val dtosByFilter = entitiesByFilter.map { mapper.toMap(it) }.toMutableList()
+        val recordsByFilter = entitiesByFilter.map { mapper.toMap(it) }.toMutableList()
 
         val countByFilter = entityService.countByFilter(productFilter, category)
-        return ContentPage(dtosByFilter, countByFilter, pageable.pageNumber, pageable.pageSize)
+
+        return ContentPage(recordsByFilter, countByFilter, pageable.pageNumber, pageable.pageSize)
     }
 
 }

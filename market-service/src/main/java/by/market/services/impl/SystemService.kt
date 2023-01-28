@@ -30,8 +30,9 @@ class DataTypeService(repository: DataTypeRepository)
 open class EntityMetadataService(repository: EntityMetadataRepository, private val containerMetadataService: ContainerMetadataService)
     : BaseSystemCharacteristicService<EntityMetadata, EntityMetadataRepository>(repository) {
 
-    fun findByTableName(tableName: String): EntityMetadata? {
-        return rep.findByTableName(tableName)
+    @Transactional(readOnly = true)
+    open fun findByTableName(tableName: String): EntityMetadata? {
+        return repository.findByTableName(tableName)
     }
 
     @Transactional

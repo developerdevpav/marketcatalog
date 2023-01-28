@@ -12,7 +12,7 @@
     <modules>
         <module>market-core</module>
         <module>market-api</module>
-        <module>market-dto</module>
+        <module>market-record</module>
         <module>market-service</module>
         <module>market-facade</module>
         <module>market-repository</module>
@@ -104,7 +104,7 @@
 
             <dependency>
                 <groupId>by.market</groupId>
-                <artifactId>market-dto</artifactId>
+                <artifactId>market-record</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

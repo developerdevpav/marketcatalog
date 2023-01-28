@@ -17,12 +17,19 @@ import java.util.*
 
 
 @Service
-open class ProductService(rep: ProductRepository) : BaseProductService<Product, ProductRepository>(rep) {
+open class ProductService(repository: ProductRepository) : BaseProductService<Product, ProductRepository>(repository) {
 
-    @Autowired private lateinit var stringSingleCharacteristicRepository: StringSingleCharacteristicRepository
-    @Autowired private lateinit var doubleSingleCharacteristicRepository: DoubleSingleCharacteristicRepository
-    @Autowired private lateinit var entityMetadataRepository: EntityMetadataRepository
-    @Autowired private lateinit var baseProductFilterService: BaseProductFilterService<Product>;
+    @Autowired
+    private lateinit var stringSingleCharacteristicRepository: StringSingleCharacteristicRepository
+
+    @Autowired
+    private lateinit var doubleSingleCharacteristicRepository: DoubleSingleCharacteristicRepository
+
+    @Autowired
+    private lateinit var entityMetadataRepository: EntityMetadataRepository
+
+    @Autowired
+    private lateinit var baseProductFilterService: BaseProductFilterService<Product>
 
 
     private val lazyEntityMetadata: EntityMetadata by lazy {
@@ -33,12 +40,15 @@ open class ProductService(rep: ProductRepository) : BaseProductService<Product, 
     override fun findDoubleCharacteristicById(id: UUID): List<DoubleCharacteristic> =
         doubleSingleCharacteristicRepository.findByEntityMetadataAndProduct(lazyEntityMetadata, getReference(id))
 
+    @Transactional(readOnly = true)
     override fun findStringCharacteristicById(id: UUID): List<StringCharacteristic> =
         stringSingleCharacteristicRepository.findByEntityMetadataAndProduct(lazyEntityMetadata, getReference(id))
 
+    @Transactional(readOnly = true)
     override fun findByFilter(filter: ProductFilter, category: UUID, pageable: Pageable): List<Product> =
         baseProductFilterService.findByFilter(filter, category, pageable)
 
+    @Transactional(readOnly = true)
     override fun countByFilter(filter: ProductFilter, category: UUID): Long =
         baseProductFilterService.countByFilter(filter, category)
 

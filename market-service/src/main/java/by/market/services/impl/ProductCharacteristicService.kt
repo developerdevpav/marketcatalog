@@ -30,7 +30,7 @@ open class ProductCharacteristicService(repository: ProductCharacteristicReposit
 
         referenceDataType ?: throw EntityNotFoundException("Data type with ID [${dataTypeId}] not found")
 
-        val characteristicTitle: Characteristic? = rep.findByTitleAndDataType(entity.title!!, referenceDataType)
+        val characteristicTitle: Characteristic? = repository.findByTitleAndDataType(entity.title!!, referenceDataType)
 
         entity.dataType = referenceDataType
 

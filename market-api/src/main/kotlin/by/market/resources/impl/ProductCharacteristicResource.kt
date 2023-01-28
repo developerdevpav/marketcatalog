@@ -1,8 +1,8 @@
 package by.market.resources.impl
 
 import by.market.domain.characteristics.AbstractCharacteristic
-import by.market.dto.characteristics.AbstractCharacteristicDTO
-import by.market.dto.characteristics.ProductCharacteristicDTO
+import by.market.records.characteristics.AbstractCharacteristicRecord
+import by.market.records.characteristics.ProductCharacteristicRecord
 import by.market.facade.impl.ProductCharacteristicFacade
 import by.market.facade.impl.ProductCharacteristicValueFacade
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/product-characteristic")
 class ProductCharacteristicResource(facade: ProductCharacteristicFacade) :
-    AbstractResource<ProductCharacteristicDTO, ProductCharacteristicFacade>(facade) {
+    AbstractResource<ProductCharacteristicRecord, ProductCharacteristicFacade>(facade) {
 
     @Autowired
     private lateinit var productCharacteristicValueFacade: ProductCharacteristicValueFacade
 
     @PostMapping("/value")
-    fun saveCharacteristicValue(@RequestBody abstractCharacteristicDTO: AbstractCharacteristicDTO<Any>): ResponseEntity<AbstractCharacteristic<Any>?> {
+    fun saveCharacteristicValue(@RequestBody abstractCharacteristicDTO: AbstractCharacteristicRecord<Any>): ResponseEntity<AbstractCharacteristic<Any>?> {
         return ResponseEntity.ok(productCharacteristicValueFacade.save(abstractCharacteristicDTO)!!)
     }
 

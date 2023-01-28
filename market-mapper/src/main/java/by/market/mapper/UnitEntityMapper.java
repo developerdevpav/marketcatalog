@@ -1,7 +1,7 @@
 package by.market.mapper;
 
 import by.market.domain.units.UnitEntity;
-import by.market.dto.UnitEntityDTO;
+import by.market.records.UnitEntityRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -12,17 +12,17 @@ import java.util.UUID;
 import static java.util.Objects.isNull;
 
 @Mapper(config = MapperConfiguration.class)
-public interface UnitEntityMapper extends MapstructMapper<UnitEntityDTO, UnitEntity> {
+public interface UnitEntityMapper extends MapstructMapper<UnitEntityRecord, UnitEntity> {
 
     @Mappings({
             @Mapping(source = "unitGroup.id", target = "unitGroup")
     })
-    UnitEntityDTO toMap(UnitEntity entity);
+    UnitEntityRecord toMap(UnitEntity entity);
 
     @Mappings({
             @Mapping(target = "unitGroup", qualifiedByName = "convertGroupUnit")
     })
-    UnitEntity fromMap(UnitEntityDTO tdto);
+    UnitEntity fromMap(UnitEntityRecord tdto);
 
     @Named("convertGroupUnit")
     default UnitEntity convert(UUID id) {

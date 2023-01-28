@@ -1,14 +1,14 @@
 package by.market.facade
 
-import by.market.dto.TreeUnitDTO
-import by.market.dto.UnitEntityDTO
+import by.market.records.TreeUnitRecord
+import by.market.records.UnitEntityRecord
 
-interface UnitEntityFacade : Facade<UnitEntityDTO> {
+interface UnitEntityFacade : Facade<UnitEntityRecord> {
 
-    fun findByValue(value: String?): UnitEntityDTO
+    fun findByValue(value: String?): UnitEntityRecord
 
-    fun findUnitsTree(): MutableList<TreeUnitDTO>
+    fun findUnitsTree(): MutableList<TreeUnitRecord>
 
-    fun findGroups(): MutableList<UnitEntityDTO>
+    fun findGroups(): MutableList<UnitEntityRecord>
 
 }

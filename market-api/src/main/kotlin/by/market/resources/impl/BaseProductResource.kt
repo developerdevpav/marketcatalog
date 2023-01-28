@@ -1,10 +1,10 @@
 package by.market.resources.impl
 
 import by.market.core.ProductFilter
-import by.market.dto.AbstractProductDTO
-import by.market.dto.characteristics.CharacteristicPairDTO
-import by.market.dto.system.CategoryDTO
-import by.market.dto.system.ContentPage
+import by.market.records.AbstractProductRecord
+import by.market.records.characteristics.CharacteristicPairRecord
+import by.market.records.system.CategoryRecord
+import by.market.records.system.ContentPage
 import by.market.facade.IProductFacade
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 
-open class BaseProductResource<TDto : AbstractProductDTO, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) :
+open class BaseProductResource<TDto : AbstractProductRecord, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) :
     AbstractResource<TDto, TProductFacade>(productFacade) {
 
     @GetMapping("/category")
@@ -24,12 +24,12 @@ open class BaseProductResource<TDto : AbstractProductDTO, TProductFacade : IProd
     }
 
     @GetMapping("/categories")
-    open fun findByCategories(categories: List<CategoryDTO>): ResponseEntity<List<CategoryDTO>> {
+    open fun findByCategories(categories: List<CategoryRecord>): ResponseEntity<List<CategoryRecord>> {
         return ResponseEntity.ok(Collections.emptyList())
     }
 
     @GetMapping("/characteristic")
-    open fun findCharacteristic(product: TDto): ResponseEntity<CharacteristicPairDTO> {
+    open fun findCharacteristic(product: TDto): ResponseEntity<CharacteristicPairRecord> {
         return ResponseEntity.ok(productFacade.findCharacteristicByProduct(product))
     }
 

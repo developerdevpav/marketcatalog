@@ -1,9 +1,9 @@
-package by.market.dto.system
+package by.market.records.system
 
-import by.market.dto.BaseEntityDTO
+import by.market.records.BaseEntityRecord
 import java.util.*
 
-class EntityMetadataDTO : BaseEntityDTO() {
+class EntityMetadataRecord : BaseEntityRecord() {
 
     var tableName: String? = null
 

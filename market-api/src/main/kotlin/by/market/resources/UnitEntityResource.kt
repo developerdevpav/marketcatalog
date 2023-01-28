@@ -1,15 +1,15 @@
 package by.market.resources
 
-import by.market.dto.TreeUnitDTO
-import by.market.dto.UnitEntityDTO
+import by.market.records.TreeUnitRecord
+import by.market.records.UnitEntityRecord
 import org.springframework.http.ResponseEntity
 
-interface UnitEntityResource : MutableResource<UnitEntityDTO>, IReadonlyResource<UnitEntityDTO> {
+interface UnitEntityResource : MutableResource<UnitEntityRecord>, IReadonlyResource<UnitEntityRecord> {
 
-    fun findByValue(value: String?): ResponseEntity<UnitEntityDTO>
+    fun findByValue(value: String?): ResponseEntity<UnitEntityRecord>
 
-    fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitDTO>>
+    fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitRecord>>
 
-    fun findGroups(): ResponseEntity<MutableList<UnitEntityDTO>>
+    fun findGroups(): ResponseEntity<MutableList<UnitEntityRecord>>
 
 }

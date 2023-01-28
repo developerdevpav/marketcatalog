@@ -1,7 +1,7 @@
 package by.market.facade.impl
 
 import by.market.domain.characteristics.AbstractCharacteristic
-import by.market.dto.characteristics.AbstractCharacteristicDTO
+import by.market.records.characteristics.AbstractCharacteristicRecord
 import by.market.mapper.CharacteristicValueMapper
 import by.market.services.impl.ProductValueService
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +13,7 @@ class ProductCharacteristicValueFacade(private val productValueService: ProductV
     @Autowired
     private lateinit var characteristicValueMapper: CharacteristicValueMapper
 
-    fun save(entity: AbstractCharacteristicDTO<Any>): AbstractCharacteristic<Any>? {
+    fun save(entity: AbstractCharacteristicRecord<Any>): AbstractCharacteristic<Any>? {
         val abstractCharacteristic = characteristicValueMapper.fromMap(entity)
         return productValueService.save(abstractCharacteristic)
     }
