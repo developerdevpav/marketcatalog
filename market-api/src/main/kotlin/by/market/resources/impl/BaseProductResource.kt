@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 
-open class BaseProductResource<TDto: AbstractProductDTO, TProductFacade: IProductFacade<TDto>>(private val productFacade: TProductFacade)
-    : AbstractResource<TDto, TProductFacade>(productFacade) {
+open class BaseProductResource<TDto : AbstractProductDTO, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) :
+    AbstractResource<TDto, TProductFacade>(productFacade) {
 
     @GetMapping("/category")
     open fun findByCategory(@RequestParam("id") category: UUID, pageable: Pageable): ResponseEntity<Page<TDto>> {
@@ -34,9 +34,11 @@ open class BaseProductResource<TDto: AbstractProductDTO, TProductFacade: IProduc
     }
 
     @PostMapping("/filter")
-    open fun findByFilter(@RequestBody productFilter: ProductFilter,
-                          @RequestParam("category") id: UUID,
-                          pageable: Pageable): ResponseEntity<ContentPage<TDto>> {
+    open fun findByFilter(
+        @RequestBody productFilter: ProductFilter,
+        @RequestParam("category") id: UUID,
+        pageable: Pageable
+    ): ResponseEntity<ContentPage<TDto>> {
         return ResponseEntity.ok(productFacade.findByFilter(productFilter, id, pageable))
     }
 

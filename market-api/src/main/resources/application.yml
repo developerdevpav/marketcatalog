@@ -1,6 +1,32 @@
 server:
   port: 8080
 
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.xml
+  datasource:
+    tomcat:
+      initial-size: 1000
+      max-wait: 20000
+      max-active: 100
+      max-age: 50
+      max-idle: 25
+      default-auto-commit: true
+
+springdoc:
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+  show-actuator: true
+
 logging:
   level:
     root: INFO
@@ -8,10 +34,11 @@ logging:
     com.howtodoinjava: INFO
     org.hibernate: INFO
 
-spring:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: none
-  liquibase:
-    enabled: false
+swagger:
+  contact-info:
+    url: "https://github.com/developerdevpav"
+    name: "Pavel Talaika"
+    email: "devpavdeveloper@yandex.ru"
+  page-info:
+    title: "OpenApi Market Catalog"
+    version: "1.0.0"

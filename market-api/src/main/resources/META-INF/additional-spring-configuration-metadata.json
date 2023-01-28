@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "swagger.contact-info.email",
+      "type": "java.lang.String",
+      "description": "Description for swagger.contact-info.email."
+    },
+    {
+      "name": "swagger.contact-info.name",
+      "type": "java.lang.String",
+      "description": "Description for swagger.contact-info.name."
+    },
+    {
+      "name": "swagger.contact-info.email",
+      "type": "java.lang.String",
+      "description": "Description for swagger.contact-info.email."
+    },
+    {
+      "name": "swagger.page-info.title",
+      "type": "java.lang.String",
+      "description": "Description for swagger.page-info.title."
+    },
+    {
+      "name": "swagger.page-info.version",
+      "type": "java.lang.String",
+      "description": "Description for swagger.page-info.version."
+    }
+  ]
+}

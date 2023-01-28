@@ -16,8 +16,8 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [EntityNotFoundException::class, RequestInNotValidException::class])
     fun handler(databaseException: DatabaseException, request: WebRequest): ResponseEntity<ExceptionWrapper> {
         return ResponseEntity
-                .status(databaseException.getCode())
-                .body(ExceptionWrapper(Date(), databaseException.getMsg(), databaseException.getCode()))
+            .status(databaseException.getCode())
+            .body(ExceptionWrapper(Date(), databaseException.getMsg(), databaseException.getCode()))
     }
 
     data class ExceptionWrapper(val time: Date, val message: String, val code: Int)
