@@ -1,18 +1,21 @@
 package by.market.services.impl
 
-import by.market.nosql.TreeCategory
 import by.market.domain.system.Category
+import by.market.nosql.TreeCategory
 import by.market.repository.system.CategoryRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-open class CategoryService(private val rep: CategoryRepository) : BaseSystemCharacteristicService<Category, CategoryRepository>(rep) {
+open class CategoryService(rep: CategoryRepository) :
+    BaseSystemCharacteristicService<Category, CategoryRepository>(rep) {
 
-    fun findAllByParentCategory(category: Category): List<Category> = rep.findAllByParentCategory(category)
+    @Transactional(readOnly = true)
+    open fun findAllByParentCategory(id: UUID): List<Category> = repository.findAllByParentCategory_Id(id)
 
-    fun countAllByParentCategory(category: Category): Long = rep.countAllByParentCategory(category)
+    @Transactional(readOnly = true)
+    open fun countAllByParentCategory(id: UUID): Long = repository.countAllByParentCategory_Id(id)
 
     @Transactional
     override fun save(entity: Category): Category {
@@ -21,15 +24,18 @@ open class CategoryService(private val rep: CategoryRepository) : BaseSystemChar
         val parentCategory = entity.parentCategory
 
         if (parentCategory !== null) {
-            entity.parentCategory =
-                    if (parentCategory.id == null) null else rep.getReferenceById(parentCategory.id!!)
+            entity.parentCategory = if (parentCategory.id == null)
+                null
+            else
+                repository.getReferenceById(parentCategory.id!!)
         }
 
-        return rep.save(entity)
+        return repository.save(entity)
     }
 
-    fun findRootCategory(idCategory: UUID): Category? {
-        val category = rep.findById(idCategory)
+    @Transactional(readOnly = true)
+    open fun findRootCategory(idCategory: UUID): Category? {
+        val category = repository.findById(idCategory)
 
         if (category.isEmpty) return null
 
@@ -44,7 +50,7 @@ open class CategoryService(private val rep: CategoryRepository) : BaseSystemChar
 
     @Transactional(readOnly = true)
     open fun findTreeCategory(): MutableList<TreeCategory> {
-        val categories = rep.findAllByParentCategoryIsNull();
+        val categories = repository.findAllByParentCategoryIsNull()
         return categories.mapNotNull { buildRecursiveTree(it) }.toMutableList()
     }
 
@@ -53,7 +59,7 @@ open class CategoryService(private val rep: CategoryRepository) : BaseSystemChar
 
         id ?: return null
 
-        val foundOptionalCategory = rep.findById(id)
+        val foundOptionalCategory = repository.findById(id)
 
         if (!foundOptionalCategory.isPresent) {
             return null
@@ -68,10 +74,8 @@ open class CategoryService(private val rep: CategoryRepository) : BaseSystemChar
 
         val subCategories: Set<Category> = optionalCategory.subCategories
 
-        val setSubCategories = subCategories
-
-        treeCategory.subcategory = setSubCategories.mapNotNull { buildRecursiveTree(it) }
-                .toMutableList()
+        treeCategory.subcategory = subCategories.mapNotNull { buildRecursiveTree(it) }
+            .toMutableList()
 
         return treeCategory
     }
