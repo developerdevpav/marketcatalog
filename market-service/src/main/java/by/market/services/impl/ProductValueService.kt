@@ -7,8 +7,8 @@ import by.market.domain.characteristics.Characteristic
 import by.market.domain.characteristics.single.DoubleCharacteristic
 import by.market.domain.characteristics.single.StringCharacteristic
 import by.market.domain.system.EntityMetadata
-import by.market.exception.database.EntityNotFoundException
-import by.market.exception.database.RequestInNotValidException
+import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.DatabaseRequestInNotValidThrowable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -22,26 +22,26 @@ open class ProductValueService(private val productCharacteristicService: Product
     open fun save(entity: AbstractCharacteristic<Any>): AbstractCharacteristic<Any>? {
         val product = entity.product
 
-        product ?: throw RequestInNotValidException("Entity must contain a product is not null")
+        product ?: throw DatabaseRequestInNotValidThrowable("Entity must contain a product is not null")
 
         val characteristic = entity.characteristic
 
-        characteristic ?: throw RequestInNotValidException("Entity must contain a characteristic is not null")
+        characteristic ?: throw DatabaseRequestInNotValidThrowable("Entity must contain a characteristic is not null")
 
         val characteristicUUID = characteristic.id
-        characteristicUUID ?: throw RequestInNotValidException("Characteristic entity must contain an id is not null")
+        characteristicUUID ?: throw DatabaseRequestInNotValidThrowable("Characteristic entity must contain an id is not null")
 
         val foundOptionalCharacteristic = productCharacteristicService.findById(characteristicUUID)
 
         if (foundOptionalCharacteristic.isPresent.not()) {
-            throw EntityNotFoundException("Characteristic entity with ID [${characteristicUUID}] not found")
+            throw DatabaseEntityNotFoundThrowable("Characteristic entity with ID [${characteristicUUID}] not found")
         }
 
         val foundCharacteristic = foundOptionalCharacteristic.get()
 
         val dataType = foundCharacteristic.dataType
 
-        dataType ?: throw EntityNotFoundException("Characteristic with ID $characteristicUUID doesn't contain DATA TYPE")
+        dataType ?: throw DatabaseEntityNotFoundThrowable("Characteristic with ID $characteristicUUID doesn't contain DATA TYPE")
 
         return when (dataType.name) {
             Constant.DataType.Double -> {
@@ -75,7 +75,7 @@ open class ProductValueService(private val productCharacteristicService: Product
                 var stringCharacteristic = stringSingleCharacteristicService.save(valueStringUnion as StringCharacteristic)
                 return null
             }
-            else -> throw EntityNotFoundException("Entity Metadata with table name [${dataType.name}] not found")
+            else -> throw DatabaseEntityNotFoundThrowable("Entity Metadata with table name [${dataType.name}] not found")
         }
     }
 

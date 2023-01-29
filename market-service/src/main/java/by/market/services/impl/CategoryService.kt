@@ -1,6 +1,7 @@
 package by.market.services.impl
 
 import by.market.domain.system.Category
+import by.market.exception.DatabaseEntityNotFoundThrowable
 import by.market.nosql.TreeCategory
 import by.market.repository.system.CategoryRepository
 import org.springframework.stereotype.Service
@@ -16,23 +17,6 @@ open class CategoryService(rep: CategoryRepository) :
 
     @Transactional(readOnly = true)
     open fun countAllByParentCategory(id: UUID): Long = repository.countAllByParentCategory_Id(id)
-
-    @Transactional
-    override fun save(entity: Category): Category {
-        entity.subCategories = mutableSetOf()
-
-        val parentCategoryId = entity.parentCategory?.id
-
-        entity.parentCategory = if (parentCategoryId == null)
-            null
-        else findById(parentCategoryId).orElseThrow {
-            val message = "Parent category not found [parent = ${entity.parentCategory?.id}]"
-
-            by.market.exception.database.EntityNotFoundException(message)
-        }
-
-        return repository.save(entity)
-    }
 
     @Transactional(readOnly = true)
     open fun findRootCategory(idCategory: UUID): Category? {
@@ -79,6 +63,26 @@ open class CategoryService(rep: CategoryRepository) :
             .toMutableList()
 
         return treeCategory
+    }
+
+    @Transactional
+    override fun save(entity: Category): Category {
+        entity.subCategories = mutableSetOf()
+
+        entity.parentCategory = getParentCategoryOrNull(entity.parentCategory)
+
+        return repository.save(entity)
+    }
+
+    @Throws(DatabaseEntityNotFoundThrowable::class)
+    private fun getParentCategoryOrNull(category: Category?): Category? {
+        val parentCategoryId = category?.id
+
+        return if (parentCategoryId == null)
+            null
+        else findById(parentCategoryId).orElseThrow {
+            DatabaseEntityNotFoundThrowable("category_parent_not_found", true, arrayOf(parentCategoryId))
+        }
     }
 
 }

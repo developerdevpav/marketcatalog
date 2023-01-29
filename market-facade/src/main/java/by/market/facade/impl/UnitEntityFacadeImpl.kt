@@ -3,14 +3,13 @@ package by.market.facade.impl
 import by.market.domain.units.UnitEntity
 import by.market.records.TreeUnitRecord
 import by.market.records.UnitEntityRecord
-import by.market.exception.database.EntityNotFoundException
-import by.market.exception.database.RequestInNotValidException
+import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.facade.UnitEntityFacade
 import by.market.mapper.UnitEntityMapper
 import by.market.mapper.UnitEntityTreeMapper
 import by.market.services.UnitEntityService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 
 @Component
@@ -22,11 +21,11 @@ class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
 
 
     override fun findByValue(value: String?): UnitEntityRecord {
-        value ?: throw RequestInNotValidException("Value mustn't is NULL", HttpStatus.BAD_REQUEST.value())
+        value ?: throw DatabaseRequestInNotValidThrowable("Value mustn't is NULL")
 
         val unitEntity: UnitEntity? = entityService.findByValue(value)
 
-        unitEntity ?: throw EntityNotFoundException("Entity not found by value [$value]")
+        unitEntity ?: throw DatabaseEntityNotFoundThrowable("Entity not found by value [$value]")
 
         return mapper.toMap(unitEntity)
     }
