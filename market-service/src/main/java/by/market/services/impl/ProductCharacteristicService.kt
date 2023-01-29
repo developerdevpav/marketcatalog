@@ -2,8 +2,8 @@ package by.market.services.impl
 
 import by.market.domain.characteristics.Characteristic
 import by.market.domain.system.DataType
-import by.market.exception.database.EntityNotFoundException
-import by.market.exception.database.RequestInNotValidException
+import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.repository.characteristic.ProductCharacteristicRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -20,15 +20,15 @@ open class ProductCharacteristicService(repository: ProductCharacteristicReposit
         val title = entity.title
 
         if (title.isNullOrEmpty())
-            throw RequestInNotValidException("Title of characteristic mustn't be is NULL or EMPTY")
+            throw DatabaseRequestInNotValidThrowable("Title of characteristic mustn't be is NULL or EMPTY")
 
         entity.title = title.trim()
 
-        dataTypeId ?: throw RequestInNotValidException("Data type and its ID mustn't be is NULL")
+        dataTypeId ?: throw DatabaseRequestInNotValidThrowable("Data type and its ID mustn't be is NULL")
 
         val referenceDataType: DataType? = dataTypeService.getReference(dataTypeId)
 
-        referenceDataType ?: throw EntityNotFoundException("Data type with ID [${dataTypeId}] not found")
+        referenceDataType ?: throw DatabaseEntityNotFoundThrowable("Data type with ID [${dataTypeId}] not found")
 
         val characteristicTitle: Characteristic? = repository.findByTitleAndDataType(entity.title!!, referenceDataType)
 

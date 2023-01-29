@@ -1,7 +1,7 @@
 package by.market.resources.impl
 
-import by.market.exception.database.EntityNotFoundException
-import by.market.exception.database.RequestInNotValidException
+import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.facade.Facade
 import by.market.resources.IReadonlyResource
 import by.market.resources.MutableResource
@@ -11,29 +11,29 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-abstract class AbstractResource<TDTO, TFacade : Facade<TDTO>>(protected val facade: TFacade) : MutableResource<TDTO>,
-    IReadonlyResource<TDTO> {
+abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected val facade: TFacade) : MutableResource<TRecord>,
+    IReadonlyResource<TRecord> {
 
     @GetMapping
-    override fun findAll(): ResponseEntity<MutableList<TDTO>> {
+    override fun findAll(): ResponseEntity<MutableList<TRecord>> {
         return ResponseEntity.ok(facade.findAll())
     }
 
     @GetMapping("/page")
-    override fun findPage(pageable: Pageable): ResponseEntity<Page<TDTO>> = ResponseEntity.ok(facade.findAll(pageable))
+    override fun findPage(pageable: Pageable): ResponseEntity<Page<TRecord>> = ResponseEntity.ok(facade.findAll(pageable))
 
     @GetMapping("/{id}")
-    override fun findById(@PathVariable("id") id: UUID): ResponseEntity<TDTO> {
+    override fun findById(@PathVariable("id") id: UUID): ResponseEntity<TRecord> {
         val entity = facade.findById(id).orElseThrow {
-            throw EntityNotFoundException("Entity not found with id [${id}]");
+            throw DatabaseEntityNotFoundThrowable("Entity not found with id [${id}]");
         }
 
         return ResponseEntity.ok(entity)
     }
 
     @PostMapping
-    override fun save(@RequestBody entity: TDTO): ResponseEntity<TDTO> {
-        entity ?: throw RequestInNotValidException("Entity mustn't is NULL")
+    override fun save(@RequestBody entity: TRecord): ResponseEntity<TRecord> {
+        entity ?: throw DatabaseRequestInNotValidThrowable("Entity mustn't is NULL")
 
         return ResponseEntity.ok(facade.save(entity))
     }
