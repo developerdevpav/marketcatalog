@@ -27,7 +27,7 @@ open class CategoryService(rep: CategoryRepository) :
         val currentCategory = category.get()
         val parentCategory = currentCategory.parentCategory
 
-        if (parentCategory?.id == null || currentCategory.id == parentCategory.id)
+        if (parentCategory?.id == null || category.isPresent)
             return currentCategory
 
         return this.findRootCategory(parentCategory.id!!)

@@ -1,8 +1,10 @@
 package by.market.exception_handler
 
-import by.market.exception.*
+import by.market.exception.MarketCatalogException
+import by.market.exception.ResultCode
+import by.market.exception.constants.BundleGroup
 import by.market.exception.i18.LocalProperties
-import by.market.exception.utils.LocalizationExceptionUtils
+import by.market.exception.utils.LocalMessageUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -17,24 +19,22 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     fun handler(throwable: MarketCatalogException, request: WebRequest): ResponseEntity<ExceptionResponse> {
         val resultCode = throwable.getCode()
 
+        val message = LocalProperties.getMessageForLocale(
+            BundleGroup.CODE_RESOURCE.value,
+            resultCode.localCode,
+            request.locale
+        )
+        val description = LocalMessageUtils.throwText(request.locale, throwable)
+
         return ResponseEntity
             .status(HttpStatus.OK.value())
-            .body(
-                ExceptionResponse(
-                    LocalProperties.getMessageForLocale("code_message", resultCode.localCode, request.locale),
-                    LocalizationExceptionUtils.throwDescription(request.locale, throwable),
-                    resultCode.code
-                )
-            )
+            .body(ExceptionResponse(message, description, resultCode.code))
     }
 
     @ExceptionHandler
     fun handler(throwable: Exception, request: WebRequest): ResponseEntity<ExceptionResponse> {
-        val message = LocalProperties.getMessageForLocale(
-            "code_message",
-            ResultCode.UNKNOWN_ERROR.localCode,
-            request.locale
-        )
+        val localCode = ResultCode.UNKNOWN_ERROR.localCode
+        val message = LocalProperties.getMessageForLocale(BundleGroup.CODE_RESOURCE.value, localCode, request.locale)
 
         return ResponseEntity
             .status(HttpStatus.OK.value())
