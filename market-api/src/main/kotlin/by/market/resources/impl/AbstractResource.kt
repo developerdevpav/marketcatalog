@@ -1,5 +1,6 @@
 package by.market.resources.impl
 
+import by.market.aspect.catcher.annotation.Catcher
 import by.market.exception.DatabaseEntityNotFoundThrowable
 import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.facade.Facade
@@ -15,6 +16,7 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
     IReadonlyResource<TRecord> {
 
     @GetMapping
+    @Catcher
     override fun findAll(): ResponseEntity<MutableList<TRecord>> {
         return ResponseEntity.ok(facade.findAll())
     }

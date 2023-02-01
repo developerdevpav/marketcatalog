@@ -62,6 +62,10 @@
             <groupId>by.market</groupId>
             <artifactId>market-liquibase</artifactId>
         </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-aspect</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springdoc</groupId>
