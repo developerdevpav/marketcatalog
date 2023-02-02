@@ -10,14 +10,24 @@ interface IResponsePayload<T> : IResponse {
 
 }
 
+interface IResponsePayloadMutation<T> : IResponseMutation {
+
+    fun setPayload(payload: T)
+
+}
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class ResponsePayload<T>(
     rqId: UUID? = null,
     status: IStatus? = null,
-    private val payload: T? = null
-): Response(rqId, status), IResponsePayload<T> {
+    private var payload: T? = null
+): Response(rqId, status), IResponsePayload<T>, IResponsePayloadMutation<T> {
 
     @JsonProperty("payload")
     override fun getPayload(): T? = payload
+
+    override fun setPayload(payload: T) {
+        this.payload = payload
+    }
 
 }

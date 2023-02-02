@@ -3,6 +3,7 @@ package by.market.resources.impl
 import by.market.api.contract.RequestPayload
 import by.market.api.contract.ResponsePayload
 import by.market.api.contract.Status
+import by.market.aspect.annotation.ReqArg
 import by.market.aspect.catcher.annotation.Catcher
 import by.market.core.ResultCode
 import by.market.facade.impl.CategoryProductFacade
@@ -22,15 +23,11 @@ class CategoryResource(facade: CategoryProductFacade) :
 
     @PostMapping("test")
     @Catcher
-    fun find(@RequestBody request: RequestPayload<String>): ResponsePayload<String> {
+    fun find(@RequestBody @ReqArg request: RequestPayload<String>): ResponsePayload<String> {
         println(request.getPayload())
         println(request.getRqId())
 
-        return ResponsePayload(
-            UUID.randomUUID(),
-            Status(ResultCode.SUCCESSFUL.code, ResultCode.SUCCESSFUL.name),
-            request.getPayload()
-        )
+        return ResponsePayload(null, null, request.getPayload())
     }
 
     @GetMapping("/parent/{id}")

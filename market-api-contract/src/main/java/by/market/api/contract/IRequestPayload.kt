@@ -1,6 +1,7 @@
 package by.market.api.contract
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 
 interface IRequestPayload<T> : IRequest {
@@ -11,10 +12,11 @@ interface IRequestPayload<T> : IRequest {
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class RequestPayload<T>(
-    private var rqId: UUID? = UUID.randomUUID(),
+    rqId: UUID? = UUID.randomUUID(),
     private var payload: T? = null
 ): Request(rqId), IRequestPayload<T> {
 
+    @JsonProperty("payload")
     override fun getPayload(): T? = payload
 
 }

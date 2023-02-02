@@ -12,16 +12,31 @@ interface IResponse {
 
 }
 
+interface IResponseMutation {
+
+    fun setRqId(uuid: UUID?)
+
+    fun setStatus(status: IStatus?)
+
+}
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 open class Response(
     private var rqId: UUID? = null,
     private var status: IStatus? = null
-): IResponse {
+): IResponse, IResponseMutation {
 
     @JsonProperty("rqId")
     override fun getRqId(): UUID? = rqId
 
     @JsonProperty("status")
     override fun getStatus(): IStatus? = status
+    override fun setRqId(uuid: UUID?) {
+        this.rqId = uuid
+    }
+
+    override fun setStatus(status: IStatus?) {
+        this.status = status
+    }
 
 }
