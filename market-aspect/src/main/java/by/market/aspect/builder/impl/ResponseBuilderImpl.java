@@ -23,7 +23,7 @@ public class ResponseBuilderImpl implements ResponseBuilder {
         response.setRqId(metadata.getRqId());
         response.setStatus(new Status(
                 resultCode.getCode(),
-                LocaleUtils.Companion.localeMessage(metadata.getLocale(), resultCode),
+                LocaleUtils.Companion.localeMessage(resultCode),
                 null
         ));
         response.setPayload(data);
@@ -40,7 +40,7 @@ public class ResponseBuilderImpl implements ResponseBuilder {
         response.setStatus(
                 new Status(
                         ResultCode.UNKNOWN_ERROR.getCode(),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(metadata.getLocale(), ResultCode.UNKNOWN_ERROR)),
+                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR)),
                         exception.getMessage()
                 )
         );
@@ -57,8 +57,8 @@ public class ResponseBuilderImpl implements ResponseBuilder {
         response.setStatus(
                 new Status(
                         ResultCode.UNKNOWN_ERROR.getCode(),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(metadata.getLocale(), ResultCode.UNKNOWN_ERROR)),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeDescriptionWithThrowable(metadata.getLocale(), apiException))
+                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR)),
+                        LocaleUtils.Companion.localeDescriptionWithThrowable(apiException)
                 )
         );
 

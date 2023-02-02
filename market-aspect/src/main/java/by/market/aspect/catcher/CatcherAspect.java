@@ -1,10 +1,12 @@
 package by.market.aspect.catcher;
 
-import by.market.api.contract.*;
+import by.market.api.contract.IRequest;
+import by.market.api.contract.IResponsePayload;
+import by.market.api.contract.IStatus;
+import by.market.aspect.annotation.ReqArg;
 import by.market.aspect.builder.ResponseBuilder;
 import by.market.aspect.records.CatcherMetadata;
 import by.market.aspect.service.MethodArgumentSearcher;
-import by.market.aspect.annotation.ReqArg;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +14,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,7 +29,7 @@ public class CatcherAspect {
     private final ResponseBuilder responseBuilder;
 
     @Around(value = "@annotation(by.market.aspect.catcher.annotation.Catcher)")
-    public Object catching(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object catching(final ProceedingJoinPoint proceedingJoinPoint) {
         final var signature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         final var method = signature.getMethod();
@@ -70,7 +69,7 @@ public class CatcherAspect {
     private CatcherMetadata getMetadata(final Object object) {
         CatcherMetadata.CatcherMetadataBuilder builder = CatcherMetadata.builder();
         if (object instanceof final IRequest request) {
-            builder.locale(request.getLocal()).rqId(request.getRqId());
+            builder.rqId(request.getRqId());
         }
         return builder.build();
     }

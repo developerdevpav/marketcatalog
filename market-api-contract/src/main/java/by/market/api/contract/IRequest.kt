@@ -1,24 +1,21 @@
 package by.market.api.contract
 
-import by.market.core.Locale
 import com.fasterxml.jackson.annotation.JsonInclude
-import java.util.UUID
+import com.fasterxml.jackson.annotation.JsonProperty
+import java.util.*
 
 interface IRequest {
 
     fun getRqId(): UUID?
 
-    fun getLocal(): Locale?
-
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 open class Request(
-    private var rqUid: UUID? = UUID.randomUUID(),
-    private var locale: Locale? = Locale.RU): IRequest {
+    private var rqUid: UUID? = UUID.randomUUID()
+): IRequest {
 
+    @JsonProperty("rqId")
     override fun getRqId(): UUID? = rqUid
-
-    override fun getLocal(): Locale? = locale
 
 }

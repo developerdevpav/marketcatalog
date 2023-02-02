@@ -4,28 +4,21 @@ import by.market.core.ResultCode
 
 interface MarketCatalogThrowable {
 
-    fun getDescription(): String?
-
     fun getCode(): ResultCode
 
-    fun getArgs(): Array<Any>
+    fun getLocalizationCode(): String?
 
-    fun isLocalization(): Boolean {
-        return false
-    }
+    fun getArgs(): Array<Any>
 
 }
 
 open class ApiException(
-    private val description: String? = null,
-    private val localization: Boolean = false,
+    private val localeCode: String? = null,
     private val args: Array<Any> = arrayOf(),
-    private val code: ResultCode = ResultCode.DATA_NOT_FOUND,
-) : RuntimeException(description), MarketCatalogThrowable {
+    private val code: ResultCode = ResultCode.UNKNOWN_ERROR
+) : RuntimeException(localeCode), MarketCatalogThrowable {
 
-    override fun isLocalization(): Boolean = localization
-
-    override fun getDescription(): String? = "messages.${description}"
+    override fun getLocalizationCode(): String? = if (localeCode.isNullOrEmpty()) null else "messages.${localeCode}"
 
     override fun getCode(): ResultCode = code
 
@@ -34,15 +27,13 @@ open class ApiException(
 }
 
 open class DatabaseEntityNotFoundThrowable(
-    description: String? = null,
-    localization: Boolean = false,
+    localeCode: String? = null,
     args: Array<Any> = arrayOf(),
-    code: ResultCode = ResultCode.DATA_NOT_FOUND,
-) : ApiException(description, localization, args, code)
+    code: ResultCode = ResultCode.DATA_NOT_FOUND
+) : ApiException(localeCode, args, code)
 
 open class DatabaseRequestInNotValidThrowable(
-    description: String? = null,
-    localization: Boolean = false,
+    localeCode: String? = null,
     args: Array<Any> = arrayOf(),
-    code: ResultCode = ResultCode.DATA_NOT_FOUND,
-) : ApiException(description, localization, args, code)
+    code: ResultCode = ResultCode.DATA_NOT_FOUND
+) : ApiException(localeCode, args, code)
