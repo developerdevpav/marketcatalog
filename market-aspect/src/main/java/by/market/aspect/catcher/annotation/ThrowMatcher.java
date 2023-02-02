@@ -1,6 +1,6 @@
 package by.market.aspect.catcher.annotation;
 
-import by.market.exception.ResultCode;
+import by.market.core.ResultCode;
 
 public @interface ThrowMatcher {
 

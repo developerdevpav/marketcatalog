@@ -21,6 +21,7 @@
         <module>market-liquibase</module>
         <module>market-exception</module>
         <module>market-aspect</module>
+        <module>market-api-contract</module>
     </modules>
 
     <parent>
@@ -106,6 +107,11 @@
             <dependency>
                 <groupId>by.market</groupId>
                 <artifactId>market-record</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>by.market</groupId>
+                <artifactId>market-api-contract</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

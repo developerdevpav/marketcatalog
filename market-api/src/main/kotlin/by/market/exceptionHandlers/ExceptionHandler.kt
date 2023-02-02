@@ -1,7 +1,7 @@
 package by.market.exceptionHandlers
 
+import by.market.core.ResultCode
 import by.market.exception.MarketCatalogException
-import by.market.exception.ResultCode
 import by.market.exception.constants.BundleGroup
 import by.market.exception.i18.LocalProperties
 import by.market.exception.utils.LocalMessageUtils

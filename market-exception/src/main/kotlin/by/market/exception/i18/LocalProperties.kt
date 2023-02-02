@@ -5,9 +5,11 @@ import java.util.*
 open class LocalProperties {
 
     companion object {
-        fun getMessageForLocale(group: String, messageKey: String, locale: Locale): String {
-            return ResourceBundle.getBundle(group, locale).getString(messageKey)
+
+        fun getMessageForLocale(group: String, key: String, locale: Locale): String {
+            return ResourceBundle.getBundle(group, locale).getString(key)
         }
+
     }
 
 }

@@ -16,7 +16,6 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
     IReadonlyResource<TRecord> {
 
     @GetMapping
-    @Catcher
     override fun findAll(): ResponseEntity<MutableList<TRecord>> {
         return ResponseEntity.ok(facade.findAll())
     }

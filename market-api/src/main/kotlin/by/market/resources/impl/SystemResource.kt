@@ -1,21 +1,37 @@
 package by.market.resources.impl
 
-import by.market.records.TreeCategoryRecord
-import by.market.records.system.*
+import by.market.api.contract.RequestPayload
+import by.market.api.contract.ResponsePayload
+import by.market.api.contract.Status
+import by.market.aspect.catcher.annotation.Catcher
+import by.market.core.ResultCode
 import by.market.facade.impl.CategoryProductFacade
 import by.market.facade.impl.ContainerMetadataFacade
 import by.market.facade.impl.DataTypeFacade
 import by.market.facade.impl.EntityMetadataFacade
+import by.market.records.TreeCategoryRecord
+import by.market.records.system.*
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/api/category")
-class CategoryResource(facade: CategoryProductFacade) : AbstractResource<CategoryRecord, CategoryProductFacade>(facade) {
+class CategoryResource(facade: CategoryProductFacade) :
+    AbstractResource<CategoryRecord, CategoryProductFacade>(facade) {
+
+    @PostMapping("test")
+    @Catcher
+    fun find(@RequestBody request: RequestPayload<String>): ResponsePayload<String> {
+        println(request.getPayload())
+        println(request.getRqId())
+
+        return ResponsePayload(
+            UUID.randomUUID(),
+            Status(ResultCode.SUCCESSFUL.code, ResultCode.SUCCESSFUL.name),
+            request.getPayload()
+        )
+    }
 
     @GetMapping("/parent/{id}")
     fun findByParent(@PathVariable("id") id: UUID): ResponseEntity<ContentPage<CategoryRecord>> =

@@ -1,5 +1,7 @@
 package by.market.exception
 
+import by.market.core.ResultCode
+
 interface MarketCatalogThrowable {
 
     fun getDescription(): String?
