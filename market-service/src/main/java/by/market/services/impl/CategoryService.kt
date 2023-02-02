@@ -81,7 +81,7 @@ open class CategoryService(rep: CategoryRepository) :
         return if (parentCategoryId == null)
             null
         else findById(parentCategoryId).orElseThrow {
-            DatabaseEntityNotFoundThrowable("category_parent_not_found", true, arrayOf(parentCategoryId))
+            DatabaseEntityNotFoundThrowable("category_parent_not_found", arrayOf(parentCategoryId))
         }
     }
 
