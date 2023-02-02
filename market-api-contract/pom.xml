@@ -6,33 +6,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>market-catalog</artifactId>
         <groupId>by.market</groupId>
+        <artifactId>market-catalog</artifactId>
         <version>1.0.0</version>
     </parent>
 
+    <artifactId>market-api-contract</artifactId>
+
     <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-core</artifactId>
         </dependency>
     </dependencies>
 
-    <artifactId>market-exception</artifactId>
-
     <build>
-        <finalName>market-mapper</finalName>
-
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <finalName>market-api-contract</finalName>
     </build>
+
 </project>

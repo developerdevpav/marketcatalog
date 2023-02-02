@@ -1,5 +1,6 @@
 package by.market.resources.impl
 
+import by.market.aspect.catcher.annotation.Catcher
 import by.market.exception.DatabaseEntityNotFoundThrowable
 import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.facade.Facade

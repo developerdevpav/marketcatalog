@@ -1,5 +1,7 @@
 package by.market.exception
 
+import by.market.core.ResultCode
+
 interface MarketCatalogThrowable {
 
     fun getDescription(): String?
@@ -14,7 +16,7 @@ interface MarketCatalogThrowable {
 
 }
 
-open class MarketCatalogException(
+open class ApiException(
     private val description: String? = null,
     private val localization: Boolean = false,
     private val args: Array<Any> = arrayOf(),
@@ -36,11 +38,11 @@ open class DatabaseEntityNotFoundThrowable(
     localization: Boolean = false,
     args: Array<Any> = arrayOf(),
     code: ResultCode = ResultCode.DATA_NOT_FOUND,
-) : MarketCatalogException(description, localization, args, code)
+) : ApiException(description, localization, args, code)
 
 open class DatabaseRequestInNotValidThrowable(
     description: String? = null,
     localization: Boolean = false,
     args: Array<Any> = arrayOf(),
     code: ResultCode = ResultCode.DATA_NOT_FOUND,
-) : MarketCatalogException(description, localization, args, code)
+) : ApiException(description, localization, args, code)

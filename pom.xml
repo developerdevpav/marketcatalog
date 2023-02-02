@@ -20,6 +20,8 @@
         <module>market-domain</module>
         <module>market-liquibase</module>
         <module>market-exception</module>
+        <module>market-aspect</module>
+        <module>market-api-contract</module>
     </modules>
 
     <parent>
@@ -42,6 +44,7 @@
         <jackson.kotlin.version>2.10.0</jackson.kotlin.version>
         <hibernate.jpamodelgen.version>5.3.7.Final</hibernate.jpamodelgen.version>
         <snakeyaml.version>1.33</snakeyaml.version>
+        <lombok.version>1.18.24</lombok.version>
     </properties>
 
     <dependencies>
@@ -97,6 +100,12 @@
                 <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-jpamodelgen</artifactId>
                 <version>${hibernate.jpamodelgen.version}</version>
@@ -105,6 +114,16 @@
             <dependency>
                 <groupId>by.market</groupId>
                 <artifactId>market-record</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>by.market</groupId>
+                <artifactId>market-api-contract</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>by.market</groupId>
+                <artifactId>market-aspect</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
