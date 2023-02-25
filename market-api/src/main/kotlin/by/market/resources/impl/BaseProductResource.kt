@@ -18,25 +18,21 @@ import java.util.*
 
 open class BaseProductResource<TDto : AbstractProductRecord, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) : AbstractResource<TDto, TProductFacade>(productFacade) {
 
-    @Catcher
     @GetMapping("/category")
     open fun findByCategory(@RequestParam("id") category: UUID, pageable: Pageable): ResponseEntity<Page<TDto>> {
         return ResponseEntity.ok(productFacade.findByCategory(category, pageable))
     }
 
-    @Catcher
     @GetMapping("/categories")
     open fun findByCategories(categories: List<CategoryRecord>): ResponseEntity<List<CategoryRecord>> {
         return ResponseEntity.ok(Collections.emptyList())
     }
 
-    @Catcher
     @GetMapping("/characteristic")
     open fun findCharacteristic(product: TDto): ResponseEntity<CharacteristicPairRecord> {
         return ResponseEntity.ok(productFacade.findCharacteristicByProduct(product))
     }
 
-    @Catcher
     @PostMapping("/filter")
     open fun findByFilter(@RequestBody productFilter: ProductFilter, @RequestParam("category") id: UUID, pageable: Pageable): ResponseEntity<ContentPage<TDto>> {
         return ResponseEntity.ok(productFacade.findByFilter(productFilter, id, pageable))

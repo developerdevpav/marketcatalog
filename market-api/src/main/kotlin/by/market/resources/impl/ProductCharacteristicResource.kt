@@ -20,7 +20,6 @@ class ProductCharacteristicResource(facade: ProductCharacteristicFacade) : Abstr
     @Autowired
     private lateinit var productCharacteristicValueFacade: ProductCharacteristicValueFacade
 
-    @Catcher
     @PostMapping("/value")
     fun saveCharacteristicValue(@RequestBody abstractCharacteristicDTO: AbstractCharacteristicRecord<Any>): ResponseEntity<AbstractCharacteristic<Any>?> {
         return ResponseEntity.ok(productCharacteristicValueFacade.save(abstractCharacteristicDTO)!!)

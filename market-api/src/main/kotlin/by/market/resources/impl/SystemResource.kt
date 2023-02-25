@@ -16,11 +16,9 @@ import java.util.*
 @RequestMapping("/api/category")
 class CategoryResource(facade: CategoryProductFacade) : AbstractResource<CategoryRecord, CategoryProductFacade>(facade) {
 
-    @Catcher
     @GetMapping("/parent/{id}")
     fun findByParent(@PathVariable("id") id: UUID): ResponseEntity<ContentPage<CategoryRecord>> = ResponseEntity.ok(facade.findByParent(id))
 
-    @Catcher
     @GetMapping("/tree")
     fun findTreeCategory(): ResponseEntity<MutableList<TreeCategoryRecord>> = ResponseEntity.ok(facade.findTreeCategories())
 

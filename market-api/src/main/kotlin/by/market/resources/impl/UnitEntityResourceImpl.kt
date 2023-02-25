@@ -16,15 +16,12 @@ import org.springframework.web.bind.annotation.RestController
 class UnitEntityResourceImpl(facade: UnitEntityFacade)
     : AbstractResource<UnitEntityRecord, UnitEntityFacade>(facade), UnitEntityResource {
 
-    @Catcher
     @GetMapping("/value")
     override fun findByValue(@RequestParam("value") value: String?): ResponseEntity<UnitEntityRecord> = ResponseEntity.ok(facade.findByValue(value))
 
-    @Catcher
     @GetMapping("/tree")
     override fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitRecord>> = ResponseEntity.ok(facade.findUnitsTree())
 
-    @Catcher
     @GetMapping("/groups")
     override fun findGroups(): ResponseEntity<MutableList<UnitEntityRecord>> = ResponseEntity.ok(facade.findGroups())
 

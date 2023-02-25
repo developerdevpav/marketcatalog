@@ -18,10 +18,12 @@ interface IResponsePayloadMutation<T> : IResponseMutation {
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class ResponsePayload<T>(
-    rqId: UUID? = null,
-    status: IStatus? = null,
+    private var rqId: UUID,
+    private var status: IStatus,
+    private var sourceSystem: String,
+    private var sourcePerformer: String,
     private var payload: T? = null
-): Response(rqId, status), IResponsePayload<T>, IResponsePayloadMutation<T> {
+): Response(rqId, status, sourceSystem, sourcePerformer), IResponsePayload<T>, IResponsePayloadMutation<T> {
 
     @JsonProperty("payload")
     override fun getPayload(): T? = payload

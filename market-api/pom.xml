@@ -32,7 +32,6 @@
         <dependency>
             <groupId>by.market</groupId>
             <artifactId>market-api-contract</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

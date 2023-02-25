@@ -18,7 +18,7 @@ open class ApiException(
     private val code: ResultCode = ResultCode.UNKNOWN_ERROR
 ) : RuntimeException(localeCode), MarketCatalogThrowable {
 
-    override fun getLocalizationCode(): String? = if (localeCode.isNullOrEmpty()) null else "messages.${localeCode}"
+    override fun getLocalizationCode(): String? = if (localeCode.isNullOrEmpty()) code.localCode else "messages.${localeCode}"
 
     override fun getCode(): ResultCode = code
 
@@ -36,4 +36,10 @@ open class DatabaseRequestInNotValidThrowable(
     localeCode: String? = null,
     args: Array<Any> = arrayOf(),
     code: ResultCode = ResultCode.DATA_NOT_FOUND
+) : ApiException(localeCode, args, code)
+
+open class RequestValidationException(
+    localeCode: String? = null,
+    args: Array<Any> = arrayOf(),
+    code: ResultCode = ResultCode.REQUEST_INVALID
 ) : ApiException(localeCode, args, code)

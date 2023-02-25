@@ -1,6 +1,5 @@
 package by.market.facade.impl
 
-import by.market.aspect.catcher.annotation.Catcher
 import by.market.domain.BaseEntity
 import by.market.records.BaseEntityRecord
 import by.market.facade.Facade
@@ -15,7 +14,11 @@ open class AbstractFacade<TService : IService<TEntity>, TDto : BaseEntityRecord,
         protected val mapper: MapstructMapper<TDto, TEntity>) : Facade<TDto> {
 
     override fun findAll(): MutableList<TDto> {
-        return mapper.toMap(entityService.findAll()).toMutableList()
+        val entities = entityService.findAll()
+
+        val mutableList = mapper.toMap(entities).toMutableList()
+
+        return mutableList
     }
 
     override fun findAll(pageable: Pageable): Page<TDto> {

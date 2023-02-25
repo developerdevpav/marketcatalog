@@ -1,8 +1,8 @@
 package by.market.resources.impl
 
-import by.market.aspect.catcher.annotation.Catcher
+import by.market.core.ResultCode
 import by.market.exception.DatabaseEntityNotFoundThrowable
-import by.market.exception.DatabaseRequestInNotValidThrowable
+import by.market.exception.RequestValidationException
 import by.market.facade.Facade
 import by.market.resources.IReadonlyResource
 import by.market.resources.MutableResource
@@ -14,15 +14,12 @@ import java.util.*
 
 abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected val facade: TFacade) : MutableResource<TRecord>, IReadonlyResource<TRecord> {
 
-    @Catcher
     @GetMapping
     override fun findAll(): ResponseEntity<MutableList<TRecord>> = ResponseEntity.ok(facade.findAll())
 
-    @Catcher
     @GetMapping("/page")
     override fun findPage(pageable: Pageable): ResponseEntity<Page<TRecord>> = ResponseEntity.ok(facade.findAll(pageable))
 
-    @Catcher
     @GetMapping("/{id}")
     override fun findById(@PathVariable("id") id: UUID): ResponseEntity<TRecord> {
         val entity = facade.findById(id).orElseThrow {
@@ -32,15 +29,13 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
         return ResponseEntity.ok(entity)
     }
 
-    @Catcher
     @PostMapping
     override fun save(@RequestBody entity: TRecord): ResponseEntity<TRecord> {
-        entity ?: throw DatabaseRequestInNotValidThrowable("Entity mustn't is NULL")
+        entity ?: throw RequestValidationException(localeCode = "request_empty", code = ResultCode.REQUEST_IS_EMPTY)
 
         return ResponseEntity.ok(facade.save(entity))
     }
 
-    @Catcher
     @DeleteMapping("/{id}")
     override fun delete(@PathVariable("id") id: UUID): ResponseEntity<Unit> {
         facade.delete(id)
@@ -48,7 +43,6 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
         return ResponseEntity.ok().build()
     }
 
-    @Catcher
     @DeleteMapping
     override fun deleteList(@RequestBody id: MutableList<UUID>): ResponseEntity<Unit> {
         facade.delete(id)
