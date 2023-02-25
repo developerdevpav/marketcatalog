@@ -11,9 +11,7 @@ interface IRequest {
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-open class Request(
-    private var rqUid: UUID? = UUID.randomUUID()
-): IRequest {
+open class Request(private var rqUid: UUID? = UUID.randomUUID()): IRequest {
 
     @JsonProperty("rqId")
     override fun getRqId(): UUID? = rqUid

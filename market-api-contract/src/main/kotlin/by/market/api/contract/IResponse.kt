@@ -2,7 +2,7 @@ package by.market.api.contract
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.UUID
+import java.util.*
 
 interface IResponse {
 
@@ -21,10 +21,8 @@ interface IResponseMutation {
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-open class Response(
-    private var rqId: UUID? = null,
-    private var status: IStatus? = null
-): IResponse, IResponseMutation {
+open class Response(private var rqId: UUID? = null, private var status: IStatus? = null)
+    : IResponse, IResponseMutation {
 
     @JsonProperty("rqId")
     override fun getRqId(): UUID? = rqId

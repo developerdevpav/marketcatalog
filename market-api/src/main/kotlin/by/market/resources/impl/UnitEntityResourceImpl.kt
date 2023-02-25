@@ -1,5 +1,6 @@
 package by.market.resources.impl
 
+import by.market.aspect.catcher.annotation.Catcher
 import by.market.records.TreeUnitRecord
 import by.market.records.UnitEntityRecord
 import by.market.facade.UnitEntityFacade
@@ -15,16 +16,16 @@ import org.springframework.web.bind.annotation.RestController
 class UnitEntityResourceImpl(facade: UnitEntityFacade)
     : AbstractResource<UnitEntityRecord, UnitEntityFacade>(facade), UnitEntityResource {
 
+    @Catcher
     @GetMapping("/value")
-    override fun findByValue(@RequestParam("value") value: String?): ResponseEntity<UnitEntityRecord> =
-        ResponseEntity.ok(facade.findByValue(value))
+    override fun findByValue(@RequestParam("value") value: String?): ResponseEntity<UnitEntityRecord> = ResponseEntity.ok(facade.findByValue(value))
 
+    @Catcher
     @GetMapping("/tree")
-    override fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitRecord>> =
-        ResponseEntity.ok(facade.findUnitsTree())
+    override fun findUnitsTree(): ResponseEntity<MutableList<TreeUnitRecord>> = ResponseEntity.ok(facade.findUnitsTree())
 
+    @Catcher
     @GetMapping("/groups")
-    override fun findGroups(): ResponseEntity<MutableList<UnitEntityRecord>> =
-        ResponseEntity.ok(facade.findGroups())
+    override fun findGroups(): ResponseEntity<MutableList<UnitEntityRecord>> = ResponseEntity.ok(facade.findGroups())
 
 }

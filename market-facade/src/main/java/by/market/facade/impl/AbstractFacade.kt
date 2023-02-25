@@ -1,5 +1,6 @@
 package by.market.facade.impl
 
+import by.market.aspect.catcher.annotation.Catcher
 import by.market.domain.BaseEntity
 import by.market.records.BaseEntityRecord
 import by.market.facade.Facade

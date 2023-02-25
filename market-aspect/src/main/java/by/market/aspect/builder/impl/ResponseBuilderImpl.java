@@ -40,7 +40,7 @@ public class ResponseBuilderImpl implements ResponseBuilder {
         response.setStatus(
                 new Status(
                         ResultCode.UNKNOWN_ERROR.getCode(),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR)),
+                        LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR),
                         exception.getMessage()
                 )
         );
@@ -49,7 +49,7 @@ public class ResponseBuilderImpl implements ResponseBuilder {
     }
 
     @Override
-    public <T extends ApiException> ResponsePayload<?> buildThrowable(T apiException,
+    public <T extends ApiException> ResponsePayload<?> buildThrowable(final T apiException,
                                                                       final CatcherMetadata metadata) {
         final var response = new ResponsePayload<T>();
 

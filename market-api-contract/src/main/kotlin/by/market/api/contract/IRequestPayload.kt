@@ -11,10 +11,8 @@ interface IRequestPayload<T> : IRequest {
 }
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class RequestPayload<T>(
-    rqId: UUID? = UUID.randomUUID(),
-    private var payload: T? = null
-): Request(rqId), IRequestPayload<T> {
+class RequestPayload<T>(rqId: UUID? = UUID.randomUUID(), private var payload: T? = null)
+    : Request(rqId), IRequestPayload<T> {
 
     @JsonProperty("payload")
     override fun getPayload(): T? = payload

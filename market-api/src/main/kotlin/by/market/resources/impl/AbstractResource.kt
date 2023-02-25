@@ -12,17 +12,17 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected val facade: TFacade) : MutableResource<TRecord>,
-    IReadonlyResource<TRecord> {
+abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected val facade: TFacade) : MutableResource<TRecord>, IReadonlyResource<TRecord> {
 
+    @Catcher
     @GetMapping
-    override fun findAll(): ResponseEntity<MutableList<TRecord>> {
-        return ResponseEntity.ok(facade.findAll())
-    }
+    override fun findAll(): ResponseEntity<MutableList<TRecord>> = ResponseEntity.ok(facade.findAll())
 
+    @Catcher
     @GetMapping("/page")
     override fun findPage(pageable: Pageable): ResponseEntity<Page<TRecord>> = ResponseEntity.ok(facade.findAll(pageable))
 
+    @Catcher
     @GetMapping("/{id}")
     override fun findById(@PathVariable("id") id: UUID): ResponseEntity<TRecord> {
         val entity = facade.findById(id).orElseThrow {
@@ -32,6 +32,7 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
         return ResponseEntity.ok(entity)
     }
 
+    @Catcher
     @PostMapping
     override fun save(@RequestBody entity: TRecord): ResponseEntity<TRecord> {
         entity ?: throw DatabaseRequestInNotValidThrowable("Entity mustn't is NULL")
@@ -39,6 +40,7 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
         return ResponseEntity.ok(facade.save(entity))
     }
 
+    @Catcher
     @DeleteMapping("/{id}")
     override fun delete(@PathVariable("id") id: UUID): ResponseEntity<Unit> {
         facade.delete(id)
@@ -46,6 +48,7 @@ abstract class AbstractResource<TRecord, TFacade : Facade<TRecord>>(protected va
         return ResponseEntity.ok().build()
     }
 
+    @Catcher
     @DeleteMapping
     override fun deleteList(@RequestBody id: MutableList<UUID>): ResponseEntity<Unit> {
         facade.delete(id)
