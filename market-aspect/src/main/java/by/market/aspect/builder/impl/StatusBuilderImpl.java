@@ -8,8 +8,6 @@ import market.api.contract.IStatus;
 import market.api.contract.Status;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 @Component
 public class StatusBuilderImpl implements StatusBuilder {
 

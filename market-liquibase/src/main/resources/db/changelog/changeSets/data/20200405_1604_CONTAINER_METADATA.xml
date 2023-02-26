@@ -24,9 +24,9 @@
             <delete schemaName="PUBLIC" tableName="TBX_S_CONTAINER_METADATA">
                 <where>
                     ID IN (
-                        '4b4f01af-4e88-4a5f-b2f8-c151f977fb0c',
-                        '25529bd7-7663-4998-9a04-90696481b12f',
-                        '825faa65-9f1f-4ed1-94dc-58d97754e328'
+                    '4b4f01af-4e88-4a5f-b2f8-c151f977fb0c',
+                    '25529bd7-7663-4998-9a04-90696481b12f',
+                    '825faa65-9f1f-4ed1-94dc-58d97754e328'
                     )
                 </where>
             </delete>

@@ -36,8 +36,8 @@ public class MethodArgumentSearcherImpl implements MethodArgumentSearcher {
 
     @Override
     public List<Object> findAllByAnnotation(final Parameter[] parameters,
-                                      final Object[] objects,
-                                      final Class<? extends Annotation> annotation) {
+                                            final Object[] objects,
+                                            final Class<? extends Annotation> annotation) {
         final var indexes = getIndexParameterByAnnotation(parameters, annotation);
 
         if (indexes.isEmpty()) {

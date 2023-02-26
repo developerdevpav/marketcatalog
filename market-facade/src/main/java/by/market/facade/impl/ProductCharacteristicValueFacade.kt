@@ -1,8 +1,8 @@
 package by.market.facade.impl
 
 import by.market.domain.characteristics.AbstractCharacteristic
-import by.market.records.characteristics.AbstractCharacteristicRecord
 import by.market.mapper.CharacteristicValueMapper
+import by.market.records.characteristics.AbstractCharacteristicRecord
 import by.market.services.impl.ProductValueService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component

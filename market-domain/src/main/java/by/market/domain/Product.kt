@@ -8,10 +8,10 @@ import jakarta.persistence.*
 
 @Entity
 @Table(
-        name = "TBX_P_PRODUCT",
-        indexes = [
-            Index(name = "index_p_title", columnList = "TITLE")
-        ]
+    name = "TBX_P_PRODUCT",
+    indexes = [
+        Index(name = "index_p_title", columnList = "TITLE")
+    ]
 )
 open class Product : BaseEntity() {
 

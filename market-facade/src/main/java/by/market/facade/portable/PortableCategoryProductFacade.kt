@@ -12,7 +12,7 @@ import java.util.*
 /**
  *
  */
-interface PortableCategoryProductFacade: PortableFacade<CategoryRecord> {
+interface PortableCategoryProductFacade : PortableFacade<CategoryRecord> {
 
     /**
      *

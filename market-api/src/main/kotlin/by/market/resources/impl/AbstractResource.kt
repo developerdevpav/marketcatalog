@@ -6,9 +6,6 @@ import by.market.exception.RequestValidationException
 import by.market.facade.Facade
 import by.market.resources.IReadonlyResource
 import by.market.resources.MutableResource
-import market.api.contract.Request
-import market.api.contract.RequestPayload
-import market.api.contract.ResponsePayload
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity

@@ -1,20 +1,20 @@
 package by.market.facade.impl
 
 import by.market.domain.units.UnitEntity
-import by.market.records.TreeUnitRecord
-import by.market.records.UnitEntityRecord
-import by.market.exception.EntityNotFoundException
 import by.market.exception.DatabaseRequestInNotValidThrowable
+import by.market.exception.EntityNotFoundException
 import by.market.facade.UnitEntityFacade
 import by.market.mapper.UnitEntityMapper
 import by.market.mapper.UnitEntityTreeMapper
+import by.market.records.TreeUnitRecord
+import by.market.records.UnitEntityRecord
 import by.market.services.UnitEntityService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
-    : AbstractFacade<UnitEntityService, UnitEntityRecord, UnitEntity>(service, mapper), UnitEntityFacade {
+class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper) :
+    AbstractFacade<UnitEntityService, UnitEntityRecord, UnitEntity>(service, mapper), UnitEntityFacade {
 
     @Autowired
     private lateinit var unitEntityTreeMapper: UnitEntityTreeMapper

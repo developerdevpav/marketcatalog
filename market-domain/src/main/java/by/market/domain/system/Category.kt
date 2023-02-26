@@ -6,9 +6,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "TBX_S_CATEGORY", indexes = [
-    Index(name = "index_s_system_name_category", columnList = "SYSTEM_NAME")
-])
+@Table(
+    name = "TBX_S_CATEGORY", indexes = [
+        Index(name = "index_s_system_name_category", columnList = "SYSTEM_NAME")
+    ]
+)
 @Cacheable
 class Category : BaseEntity() {
 

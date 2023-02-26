@@ -11,8 +11,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DisplayName("Component of building IStatus")
 class StatusBuilderImplTest {
 

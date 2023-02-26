@@ -11,7 +11,7 @@ public interface MethodArgumentSearcher {
                             final Class<? extends Annotation> annotation);
 
     List<Object> findAllByAnnotation(final Parameter[] parameters,
-                            final Object[] objects,
-                            final Class<? extends Annotation> annotation);
+                                     final Object[] objects,
+                                     final Class<? extends Annotation> annotation);
 
 }

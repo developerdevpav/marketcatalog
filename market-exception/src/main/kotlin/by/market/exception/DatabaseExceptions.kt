@@ -18,7 +18,8 @@ open class ApiException(
     private val code: ResultCode = ResultCode.UNKNOWN_ERROR
 ) : RuntimeException(localeCode), MarketCatalogThrowable {
 
-    override fun getLocalizationCode(): String? = if (localeCode.isNullOrEmpty()) code.localCode else "messages.${localeCode}"
+    override fun getLocalizationCode(): String? =
+        if (localeCode.isNullOrEmpty()) code.localCode else "messages.${localeCode}"
 
     override fun getCode(): ResultCode = code
 

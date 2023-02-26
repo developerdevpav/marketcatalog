@@ -5,4 +5,5 @@ import by.market.records.TreeCategoryRecord;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapperConfiguration.class)
-public interface TreeCategoryMapper extends MapstructMapper<TreeCategoryRecord, TreeCategory> {}
+public interface TreeCategoryMapper extends MapstructMapper<TreeCategoryRecord, TreeCategory> {
+}

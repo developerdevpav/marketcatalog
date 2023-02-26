@@ -7,7 +7,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-open class BaseService<TEntity: BaseEntity, TRepository: BaseRepository<TEntity>>(protected val repository: TRepository) : IService<TEntity> {
+open class BaseService<TEntity : BaseEntity, TRepository : BaseRepository<TEntity>>(protected val repository: TRepository) :
+    IService<TEntity> {
 
     override fun findAll(): MutableList<TEntity> = repository.findAll()
 

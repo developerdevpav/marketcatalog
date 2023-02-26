@@ -57,13 +57,13 @@
             <delete schemaName="PUBLIC" tableName="TBX_S_ENTITY_METADATA">
                 <where>
                     ID IN (
-                        'ae842f08-27b8-4d4a-9027-25883f352f9e',
-                        'edcab99b-1fc6-4423-9f76-1218a98277b9',
-                        '283de48b-c432-4314-9274-7d0b978248f6',
-                        '35985b15-36a0-4324-8c92-dead84d1a6b3',
-                        '8e7afb48-ee0b-4df7-8b14-80e42cb4e081',
-                        'c8d321e0-41fe-4cd2-a097-bc9a04582721',
-                        '383314ff-6cc2-44e1-84a6-9bb3e5612a77'
+                    'ae842f08-27b8-4d4a-9027-25883f352f9e',
+                    'edcab99b-1fc6-4423-9f76-1218a98277b9',
+                    '283de48b-c432-4314-9274-7d0b978248f6',
+                    '35985b15-36a0-4324-8c92-dead84d1a6b3',
+                    '8e7afb48-ee0b-4df7-8b14-80e42cb4e081',
+                    'c8d321e0-41fe-4cd2-a097-bc9a04582721',
+                    '383314ff-6cc2-44e1-84a6-9bb3e5612a77'
                     )
                 </where>
             </delete>
