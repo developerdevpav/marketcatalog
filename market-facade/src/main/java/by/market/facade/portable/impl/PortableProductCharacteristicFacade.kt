@@ -12,5 +12,5 @@ import org.springframework.stereotype.Service
 open class PortableProductCharacteristicFacade(
     productCharacteristicService: ProductCharacteristicService,
     productCharacteristicMapper: ProductCharacteristicMapper
-): AbstractPortableFacade<ICharacteristicService<Characteristic>, ProductCharacteristicRecord, Characteristic>
+) : AbstractPortableFacade<ICharacteristicService<Characteristic>, ProductCharacteristicRecord, Characteristic>
     (productCharacteristicService, productCharacteristicMapper)

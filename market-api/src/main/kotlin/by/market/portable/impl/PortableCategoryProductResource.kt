@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/portable/category")
-open class PortableCategoryProductResource(facade: PortableCategoryProductFacade)
-    : AbstractPortableResource<CategoryRecord, PortableCategoryProductFacade>(facade)
+open class PortableCategoryProductResource(facade: PortableCategoryProductFacade) :
+    AbstractPortableResource<CategoryRecord, PortableCategoryProductFacade>(facade)

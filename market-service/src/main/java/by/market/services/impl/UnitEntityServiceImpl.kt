@@ -1,7 +1,7 @@
 package by.market.services.impl
 
-import by.market.nosql.TreeUnit
 import by.market.domain.units.UnitEntity
+import by.market.nosql.TreeUnit
 import by.market.repository.UnitEntityRepository
 import by.market.services.UnitEntityService
 import org.springframework.stereotype.Service

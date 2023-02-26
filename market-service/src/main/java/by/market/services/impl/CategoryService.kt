@@ -36,6 +36,7 @@ open class CategoryService(rep: CategoryRepository) :
     @Transactional(readOnly = true)
     open fun findTreeCategory(): MutableList<TreeCategory> {
         val categories = repository.findAllByParentCategoryIsNull()
+
         return categories.mapNotNull { buildRecursiveTree(it) }.toMutableList()
     }
 
@@ -46,9 +47,8 @@ open class CategoryService(rep: CategoryRepository) :
 
         val foundOptionalCategory = repository.findById(id)
 
-        if (!foundOptionalCategory.isPresent) {
+        if (foundOptionalCategory.isEmpty)
             return null
-        }
 
         val treeCategory = TreeCategory()
 
@@ -59,8 +59,7 @@ open class CategoryService(rep: CategoryRepository) :
 
         val subCategories: Set<Category> = optionalCategory.subCategories
 
-        treeCategory.subcategory = subCategories.mapNotNull { buildRecursiveTree(it) }
-            .toMutableList()
+        treeCategory.subcategory = subCategories.mapNotNull { buildRecursiveTree(it) }.toMutableList()
 
         return treeCategory
     }
@@ -78,8 +77,7 @@ open class CategoryService(rep: CategoryRepository) :
     private fun getParentCategoryOrNull(category: Category?): Category? {
         val parentCategoryId = category?.id
 
-        return if (parentCategoryId == null)
-            null
+        return if (parentCategoryId == null) null
         else findById(parentCategoryId).orElseThrow {
             EntityNotFoundException("category_parent_not_found", arrayOf(parentCategoryId))
         }

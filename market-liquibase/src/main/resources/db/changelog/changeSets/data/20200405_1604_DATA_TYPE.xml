@@ -16,8 +16,8 @@
             <delete schemaName="PUBLIC" tableName="TBX_S_DATA_TYPE">
                 <where>
                     ID IN (
-                        'f8a17421-5b48-4d22-8899-25a8765bbecc',
-                        'bb2c2f80-6fed-4504-ae5a-e8604ae8591f'
+                    'f8a17421-5b48-4d22-8899-25a8765bbecc',
+                    'bb2c2f80-6fed-4504-ae5a-e8604ae8591f'
                     )
                 </where>
             </delete>

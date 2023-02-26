@@ -6,7 +6,8 @@ import by.market.domain.system.EntityMetadata
 import org.springframework.data.repository.NoRepositoryBean
 
 @NoRepositoryBean
-interface AbstractSingleCharacteristicRepository<TEntity: AbstractCharacteristic<TEntityValue>, TEntityValue> : AbstractCharacteristicRepository<TEntity, TEntityValue> {
+interface AbstractSingleCharacteristicRepository<TEntity : AbstractCharacteristic<TEntityValue>, TEntityValue> :
+    AbstractCharacteristicRepository<TEntity, TEntityValue> {
 
     fun findByEntityMetadataAndProduct(metadata: EntityMetadata, product: Product?): List<TEntity>
 

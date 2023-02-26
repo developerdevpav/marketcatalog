@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-interface IProductFacade<TDTO: AbstractProductRecord> : Facade<TDTO> {
+interface IProductFacade<TDTO : AbstractProductRecord> : Facade<TDTO> {
 
     fun findByCategory(category: UUID, pageable: Pageable): Page<TDTO>
 

@@ -1,9 +1,9 @@
 package by.market.core
 
 class ProjectMutableListIterator<TFrom, TTo>(
-        private val inner: MutableListIterator<TFrom>,
-        private val mapper: (TFrom) -> TTo,
-        private val mapperTToToTFrom: (TTo) -> TFrom
+    private val inner: MutableListIterator<TFrom>,
+    private val mapper: (TFrom) -> TTo,
+    private val mapperTToToTFrom: (TTo) -> TFrom
 ) : MutableListIterator<TTo> {
 
     override fun hasPrevious(): Boolean = inner.hasPrevious()

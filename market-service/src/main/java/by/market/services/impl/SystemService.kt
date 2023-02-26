@@ -12,23 +12,24 @@ import by.market.services.ISystemService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-open class BaseSystemCharacteristicService<TEntity: BaseEntity, TRepository: BaseRepository<TEntity>>(rep: TRepository)
-    : ISystemService<TEntity>, BaseService<TEntity, TRepository>(rep)
-
-
-
-@Service
-class ContainerMetadataService(repository: ContainerMetadataRepository)
-    : BaseSystemCharacteristicService<ContainerMetadata, ContainerMetadataRepository>(repository)
+open class BaseSystemCharacteristicService<TEntity : BaseEntity, TRepository : BaseRepository<TEntity>>(rep: TRepository) :
+    ISystemService<TEntity>, BaseService<TEntity, TRepository>(rep)
 
 
 @Service
-class DataTypeService(repository: DataTypeRepository)
-    : BaseSystemCharacteristicService<DataType, DataTypeRepository>(repository)
+class ContainerMetadataService(repository: ContainerMetadataRepository) :
+    BaseSystemCharacteristicService<ContainerMetadata, ContainerMetadataRepository>(repository)
+
 
 @Service
-open class EntityMetadataService(repository: EntityMetadataRepository, private val containerMetadataService: ContainerMetadataService)
-    : BaseSystemCharacteristicService<EntityMetadata, EntityMetadataRepository>(repository) {
+class DataTypeService(repository: DataTypeRepository) :
+    BaseSystemCharacteristicService<DataType, DataTypeRepository>(repository)
+
+@Service
+open class EntityMetadataService(
+    repository: EntityMetadataRepository,
+    private val containerMetadataService: ContainerMetadataService
+) : BaseSystemCharacteristicService<EntityMetadata, EntityMetadataRepository>(repository) {
 
     @Transactional(readOnly = true)
     open fun findByTableName(tableName: String): EntityMetadata? {

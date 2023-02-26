@@ -1,11 +1,10 @@
 package by.market.resources.impl
 
-import by.market.aspect.catcher.annotation.Catcher
 import by.market.domain.characteristics.AbstractCharacteristic
-import by.market.records.characteristics.AbstractCharacteristicRecord
-import by.market.records.characteristics.ProductCharacteristicRecord
 import by.market.facade.impl.ProductCharacteristicFacade
 import by.market.facade.impl.ProductCharacteristicValueFacade
+import by.market.records.characteristics.AbstractCharacteristicRecord
+import by.market.records.characteristics.ProductCharacteristicRecord
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -15,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/product-characteristic")
-class ProductCharacteristicResource(facade: ProductCharacteristicFacade) : AbstractResource<ProductCharacteristicRecord, ProductCharacteristicFacade>(facade) {
+class ProductCharacteristicResource(facade: ProductCharacteristicFacade) :
+    AbstractResource<ProductCharacteristicRecord, ProductCharacteristicFacade>(facade) {
 
     @Autowired
     private lateinit var productCharacteristicValueFacade: ProductCharacteristicValueFacade

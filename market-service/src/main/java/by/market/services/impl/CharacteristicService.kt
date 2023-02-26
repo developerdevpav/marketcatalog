@@ -10,18 +10,19 @@ import by.market.repository.characteristic.single.StringSingleCharacteristicRepo
 import by.market.services.ICharacteristicService
 import org.springframework.stereotype.Service
 
-open class BaseCharacteristicService<TEntity: BaseEntity, TRepository: BaseRepository<TEntity>>(rep: TRepository)
-    : ICharacteristicService<TEntity>, BaseService<TEntity, TRepository>(rep)
+open class BaseCharacteristicService<TEntity : BaseEntity, TRepository : BaseRepository<TEntity>>(rep: TRepository) :
+    ICharacteristicService<TEntity>, BaseService<TEntity, TRepository>(rep)
 
-open class BaseSingleCharacteristicService<TCharacteristic, TEntity: AbstractCharacteristic<TCharacteristic>, TRepository: BaseRepository<TEntity>>(rep: TRepository)
-    : BaseCharacteristicService<TEntity, TRepository>(rep)
+open class BaseSingleCharacteristicService<TCharacteristic, TEntity : AbstractCharacteristic<TCharacteristic>, TRepository : BaseRepository<TEntity>>(
+    rep: TRepository
+) : BaseCharacteristicService<TEntity, TRepository>(rep)
 
-
-@Service
-open class DoubleSingleCharacteristicService(repository: DoubleSingleCharacteristicRepository)
-    : BaseSingleCharacteristicService<Double, DoubleCharacteristic, DoubleSingleCharacteristicRepository>(repository)
 
 @Service
-open class StringSingleCharacteristicService(repository: StringSingleCharacteristicRepository)
-    : BaseSingleCharacteristicService<String, StringCharacteristic, StringSingleCharacteristicRepository>(repository)
+open class DoubleSingleCharacteristicService(repository: DoubleSingleCharacteristicRepository) :
+    BaseSingleCharacteristicService<Double, DoubleCharacteristic, DoubleSingleCharacteristicRepository>(repository)
+
+@Service
+open class StringSingleCharacteristicService(repository: StringSingleCharacteristicRepository) :
+    BaseSingleCharacteristicService<String, StringCharacteristic, StringSingleCharacteristicRepository>(repository)
 

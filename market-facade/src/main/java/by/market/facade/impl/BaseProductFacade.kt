@@ -5,13 +5,13 @@ import by.market.domain.Product
 import by.market.domain.characteristics.AbstractCharacteristic
 import by.market.domain.characteristics.Characteristic
 import by.market.domain.system.Category
+import by.market.facade.IProductFacade
+import by.market.mapper.MapstructMapper
 import by.market.records.AbstractProductRecord
 import by.market.records.characteristics.CharacteristicDescriptionRecord
 import by.market.records.characteristics.CharacteristicPairRecord
 import by.market.records.system.CategoryRecord
 import by.market.records.system.ContentPage
-import by.market.facade.IProductFacade
-import by.market.mapper.MapstructMapper
 import by.market.services.IProductService
 import by.market.services.impl.CategoryService
 import kotlinx.coroutines.async

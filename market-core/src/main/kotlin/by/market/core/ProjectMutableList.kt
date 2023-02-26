@@ -1,8 +1,10 @@
 package by.market.core
 
-class ProjectMutableList<TFrom, TTo>(private val inner: MutableList<TFrom>,
-                                     private val mapperFromTo: (TFrom) -> TTo,
-                                     private val mapperToFrom: (TTo) -> TFrom) : MutableList<TTo> {
+class ProjectMutableList<TFrom, TTo>(
+    private val inner: MutableList<TFrom>,
+    private val mapperFromTo: (TFrom) -> TTo,
+    private val mapperToFrom: (TTo) -> TFrom
+) : MutableList<TTo> {
 
     override val size: Int
         get() = inner.size
@@ -32,11 +34,11 @@ class ProjectMutableList<TFrom, TTo>(private val inner: MutableList<TFrom>,
 
     override fun clear() = inner.clear()
 
-    override fun listIterator(): MutableListIterator<TTo>
-            = ProjectMutableListIterator(inner.listIterator(), mapperFromTo, mapperToFrom)
+    override fun listIterator(): MutableListIterator<TTo> =
+        ProjectMutableListIterator(inner.listIterator(), mapperFromTo, mapperToFrom)
 
-    override fun listIterator(index: Int): MutableListIterator<TTo>
-            = ProjectMutableListIterator(inner.listIterator(index), mapperFromTo, mapperToFrom)
+    override fun listIterator(index: Int): MutableListIterator<TTo> =
+        ProjectMutableListIterator(inner.listIterator(index), mapperFromTo, mapperToFrom)
 
     override fun remove(element: TTo): Boolean = inner.remove(mapperToFrom(element))
 
@@ -48,7 +50,7 @@ class ProjectMutableList<TFrom, TTo>(private val inner: MutableList<TFrom>,
 
     override fun set(index: Int, element: TTo): TTo = mapperFromTo(inner.set(index, mapperToFrom(element)))
 
-    override fun subList(fromIndex: Int, toIndex: Int): MutableList<TTo>
-            = ProjectMutableList(inner.subList(fromIndex, toIndex), mapperFromTo, mapperToFrom)
+    override fun subList(fromIndex: Int, toIndex: Int): MutableList<TTo> =
+        ProjectMutableList(inner.subList(fromIndex, toIndex), mapperFromTo, mapperToFrom)
 
 }

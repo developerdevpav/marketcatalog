@@ -4,23 +4,21 @@ import by.market.domain.system.Category
 import by.market.domain.system.ContainerMetadata
 import by.market.domain.system.DataType
 import by.market.domain.system.EntityMetadata
+import by.market.mapper.*
 import by.market.records.TreeCategoryRecord
 import by.market.records.system.*
-import by.market.mapper.*
 import by.market.services.impl.CategoryService
 import by.market.services.impl.ContainerMetadataService
 import by.market.services.impl.DataTypeService
 import by.market.services.impl.EntityMetadataService
-import market.api.contract.RequestPayload
-import market.api.contract.ResponsePayload
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
-import java.util.UUID
+import java.util.*
 
 @Component
 class CategoryProductFacade(
-        categoryService: CategoryService,
-        categoryMapper: CategoryMapper
+    categoryService: CategoryService,
+    categoryMapper: CategoryMapper
 ) : BaseSystemFacade<CategoryRecord, Category, CategoryService>(categoryService, categoryMapper) {
 
     @Autowired
@@ -44,18 +42,24 @@ class CategoryProductFacade(
 
 @Component
 class ContainerMetadataFacade(
-        containerMetadataService: ContainerMetadataService,
-        containerMetadataMapper: ContainerMetadataMapper
-): BaseSystemFacade<ContainerMetadataRecord, ContainerMetadata, ContainerMetadataService>(containerMetadataService, containerMetadataMapper)
+    containerMetadataService: ContainerMetadataService,
+    containerMetadataMapper: ContainerMetadataMapper
+) : BaseSystemFacade<ContainerMetadataRecord, ContainerMetadata, ContainerMetadataService>(
+    containerMetadataService,
+    containerMetadataMapper
+)
 
 @Component
 class EntityMetadataFacade(
-        entityMetadataService: EntityMetadataService,
-        entityMetadataMapper: EntityMetadataMapper
-) : BaseSystemFacade<EntityMetadataRecord, EntityMetadata, EntityMetadataService>(entityMetadataService, entityMetadataMapper)
+    entityMetadataService: EntityMetadataService,
+    entityMetadataMapper: EntityMetadataMapper
+) : BaseSystemFacade<EntityMetadataRecord, EntityMetadata, EntityMetadataService>(
+    entityMetadataService,
+    entityMetadataMapper
+)
 
 @Component
 class DataTypeFacade(
-        dataTypeService: DataTypeService,
-        dataTypeMapper: DataTypeMapper
-): BaseSystemFacade<DataTypeRecord, DataType, DataTypeService>(dataTypeService, dataTypeMapper)
+    dataTypeService: DataTypeService,
+    dataTypeMapper: DataTypeMapper
+) : BaseSystemFacade<DataTypeRecord, DataType, DataTypeService>(dataTypeService, dataTypeMapper)

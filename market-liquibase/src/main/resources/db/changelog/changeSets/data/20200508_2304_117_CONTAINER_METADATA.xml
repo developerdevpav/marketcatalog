@@ -12,7 +12,7 @@
 
         <rollback>
             <delete tableName="TBX_S_CONTAINER_METADATA" schemaName="PUBLIC">
-                <where> ID IN ( '36642cd8-c479-42bf-985c-cc78f7feacc6' ) </where>
+                <where>ID IN ( '36642cd8-c479-42bf-985c-cc78f7feacc6' )</where>
             </delete>
         </rollback>
     </changeSet>
