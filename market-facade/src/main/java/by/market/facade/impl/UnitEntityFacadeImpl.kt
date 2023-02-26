@@ -3,7 +3,7 @@ package by.market.facade.impl
 import by.market.domain.units.UnitEntity
 import by.market.records.TreeUnitRecord
 import by.market.records.UnitEntityRecord
-import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.EntityNotFoundException
 import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.facade.UnitEntityFacade
 import by.market.mapper.UnitEntityMapper
@@ -25,7 +25,7 @@ class UnitEntityFacadeImpl(service: UnitEntityService, mapper: UnitEntityMapper)
 
         val unitEntity: UnitEntity? = entityService.findByValue(value)
 
-        unitEntity ?: throw DatabaseEntityNotFoundThrowable("Entity not found by value [$value]")
+        unitEntity ?: throw EntityNotFoundException("Entity not found by value [$value]")
 
         return mapper.toMap(unitEntity)
     }

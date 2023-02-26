@@ -4,15 +4,15 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import java.util.*
 
-interface Facade<DTO> {
+interface Facade<TRecord> {
 
-    fun findAll(): MutableList<DTO>
+    fun findAll(): MutableList<TRecord>
 
-    fun findAll(pageable: Pageable): Page<DTO>
+    fun findAll(pageable: Pageable): Page<TRecord>
 
-    fun findById(id: UUID): Optional<DTO>
+    fun findById(id: UUID): Optional<TRecord>
 
-    fun save(entity: DTO): DTO
+    fun save(entity: TRecord): TRecord
 
     fun delete(id: UUID): Unit
 

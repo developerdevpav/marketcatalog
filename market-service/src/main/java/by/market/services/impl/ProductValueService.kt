@@ -7,7 +7,7 @@ import by.market.domain.characteristics.Characteristic
 import by.market.domain.characteristics.single.DoubleCharacteristic
 import by.market.domain.characteristics.single.StringCharacteristic
 import by.market.domain.system.EntityMetadata
-import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.EntityNotFoundException
 import by.market.exception.DatabaseRequestInNotValidThrowable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -34,14 +34,14 @@ open class ProductValueService(private val productCharacteristicService: Product
         val foundOptionalCharacteristic = productCharacteristicService.findById(characteristicUUID)
 
         if (foundOptionalCharacteristic.isPresent.not()) {
-            throw DatabaseEntityNotFoundThrowable("Characteristic entity with ID [${characteristicUUID}] not found")
+            throw EntityNotFoundException("Characteristic entity with ID [${characteristicUUID}] not found")
         }
 
         val foundCharacteristic = foundOptionalCharacteristic.get()
 
         val dataType = foundCharacteristic.dataType
 
-        dataType ?: throw DatabaseEntityNotFoundThrowable("Characteristic with ID $characteristicUUID doesn't contain DATA TYPE")
+        dataType ?: throw EntityNotFoundException("Characteristic with ID $characteristicUUID doesn't contain DATA TYPE")
 
         return when (dataType.name) {
             Constant.DataType.Double -> {
@@ -75,7 +75,7 @@ open class ProductValueService(private val productCharacteristicService: Product
                 var stringCharacteristic = stringSingleCharacteristicService.save(valueStringUnion as StringCharacteristic)
                 return null
             }
-            else -> throw DatabaseEntityNotFoundThrowable("Entity Metadata with table name [${dataType.name}] not found")
+            else -> throw EntityNotFoundException("Entity Metadata with table name [${dataType.name}] not found")
         }
     }
 

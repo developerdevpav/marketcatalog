@@ -15,4 +15,8 @@ public class CatcherMetadata {
 
     private UUID rqId;
 
+    private String sourceSystem;
+
+    private String sourcePerformer;
+
 }

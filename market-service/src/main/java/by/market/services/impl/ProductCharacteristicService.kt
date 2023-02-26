@@ -2,7 +2,7 @@ package by.market.services.impl
 
 import by.market.domain.characteristics.Characteristic
 import by.market.domain.system.DataType
-import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.EntityNotFoundException
 import by.market.exception.DatabaseRequestInNotValidThrowable
 import by.market.repository.characteristic.ProductCharacteristicRepository
 import org.springframework.stereotype.Service
@@ -28,7 +28,7 @@ open class ProductCharacteristicService(repository: ProductCharacteristicReposit
 
         val referenceDataType: DataType? = dataTypeService.getReference(dataTypeId)
 
-        referenceDataType ?: throw DatabaseEntityNotFoundThrowable("Data type with ID [${dataTypeId}] not found")
+        referenceDataType ?: throw EntityNotFoundException("Data type with ID [${dataTypeId}] not found")
 
         val characteristicTitle: Characteristic? = repository.findByTitleAndDataType(entity.title!!, referenceDataType)
 

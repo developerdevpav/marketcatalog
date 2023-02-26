@@ -34,6 +34,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-api-contract</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>by.market</groupId>
+            <artifactId>market-aspect</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

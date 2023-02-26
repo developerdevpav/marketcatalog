@@ -1,5 +1,6 @@
 package by.market.resources.impl
 
+import by.market.aspect.catcher.annotation.Catcher
 import by.market.core.ProductFilter
 import by.market.records.AbstractProductRecord
 import by.market.records.characteristics.CharacteristicPairRecord
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import java.util.*
 
-open class BaseProductResource<TDto : AbstractProductRecord, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) :
-    AbstractResource<TDto, TProductFacade>(productFacade) {
+open class BaseProductResource<TDto : AbstractProductRecord, TProductFacade : IProductFacade<TDto>>(private val productFacade: TProductFacade) : AbstractResource<TDto, TProductFacade>(productFacade) {
 
     @GetMapping("/category")
     open fun findByCategory(@RequestParam("id") category: UUID, pageable: Pageable): ResponseEntity<Page<TDto>> {
@@ -34,11 +34,7 @@ open class BaseProductResource<TDto : AbstractProductRecord, TProductFacade : IP
     }
 
     @PostMapping("/filter")
-    open fun findByFilter(
-        @RequestBody productFilter: ProductFilter,
-        @RequestParam("category") id: UUID,
-        pageable: Pageable
-    ): ResponseEntity<ContentPage<TDto>> {
+    open fun findByFilter(@RequestBody productFilter: ProductFilter, @RequestParam("category") id: UUID, pageable: Pageable): ResponseEntity<ContentPage<TDto>> {
         return ResponseEntity.ok(productFacade.findByFilter(productFilter, id, pageable))
     }
 

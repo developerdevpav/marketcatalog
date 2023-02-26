@@ -21,10 +21,9 @@ open class SwaggerConfig {
         )
 
     @Bean("swaggerContact")
-    fun swaggerContact(swaggerContactProperties: SwaggerContactProperties): Contact? =
-        Contact()
-            .email(swaggerContactProperties.email)
-            .name(swaggerContactProperties.name)
-            .url(swaggerContactProperties.url)
+    fun swaggerContact(swaggerContactProperties: SwaggerContactProperties): Contact? = Contact()
+        .email(swaggerContactProperties.email)
+        .name(swaggerContactProperties.name)
+        .url(swaggerContactProperties.url)
 
 }

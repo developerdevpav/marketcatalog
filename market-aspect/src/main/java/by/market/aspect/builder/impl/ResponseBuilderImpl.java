@@ -1,68 +1,62 @@
 package by.market.aspect.builder.impl;
 
-import by.market.api.contract.ResponsePayload;
-import by.market.api.contract.Status;
 import by.market.aspect.builder.ResponseBuilder;
+import by.market.aspect.builder.StatusBuilder;
 import by.market.aspect.records.CatcherMetadata;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
-import by.market.exception.utils.LocaleUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import market.api.contract.ResponsePayload;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
+@Slf4j
 @Component
+@RequiredArgsConstructor
 public class ResponseBuilderImpl implements ResponseBuilder {
 
+    private final StatusBuilder statusBuilder;
+
     @Override
-    public <T> ResponsePayload<T> buildSuccessful(final T data,
+    public <T> ResponsePayload<T> buildSuccessful(final T payload,
                                                   final ResultCode resultCode,
                                                   final CatcherMetadata metadata) {
-        final var response = new ResponsePayload<T>();
+        final var resultStatus = statusBuilder.buildSuccessful(resultCode);
 
-        response.setRqId(metadata.getRqId());
-        response.setStatus(new Status(
-                resultCode.getCode(),
-                LocaleUtils.Companion.localeMessage(resultCode),
-                null
-        ));
-        response.setPayload(data);
-
-        return response;
+        return ResponsePayload.<T>builder()
+                .payload(payload)
+                .rqId(metadata.getRqId())
+                .sourceSystem(metadata.getSourceSystem())
+                .sourcePerformer(metadata.getSourcePerformer())
+                .status(resultStatus)
+                .build();
     }
 
     @Override
-    public ResponsePayload<?> buildThrowable(final Throwable exception,
-                                             final CatcherMetadata metadata) {
-        final var response = new ResponsePayload<>();
+    public ResponsePayload<?> buildThrowable(final Throwable exception, final CatcherMetadata metadata) {
+        final var resultStatus = statusBuilder.buildThrowable(exception);
 
-        response.setRqId(metadata.getRqId());
-        response.setStatus(
-                new Status(
-                        ResultCode.UNKNOWN_ERROR.getCode(),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR)),
-                        exception.getMessage()
-                )
-        );
-
-        return response;
+        return ResponsePayload.builder()
+                .payload(null)
+                .rqId(metadata.getRqId())
+                .sourceSystem(metadata.getSourceSystem())
+                .sourcePerformer(metadata.getSourcePerformer())
+                .status(resultStatus)
+                .build();
     }
 
     @Override
-    public <T extends ApiException> ResponsePayload<?> buildThrowable(T apiException,
+    public <T extends ApiException> ResponsePayload<?> buildThrowable(final T apiException,
                                                                       final CatcherMetadata metadata) {
-        final var response = new ResponsePayload<T>();
+        final var resultStatus = statusBuilder.buildThrowable(apiException);
 
-        response.setRqId(metadata.getRqId());
-        response.setStatus(
-                new Status(
-                        ResultCode.UNKNOWN_ERROR.getCode(),
-                        Objects.requireNonNull(LocaleUtils.Companion.localeMessage(ResultCode.UNKNOWN_ERROR)),
-                        LocaleUtils.Companion.localeDescriptionWithThrowable(apiException)
-                )
-        );
-
-        return response;
+        return ResponsePayload.builder()
+                .payload(null)
+                .rqId(metadata.getRqId())
+                .sourceSystem(metadata.getSourceSystem())
+                .sourcePerformer(metadata.getSourcePerformer())
+                .status(resultStatus)
+                .build();
     }
 
 }

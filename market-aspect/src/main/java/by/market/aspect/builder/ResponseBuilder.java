@@ -1,9 +1,9 @@
 package by.market.aspect.builder;
 
-import by.market.api.contract.ResponsePayload;
 import by.market.aspect.records.CatcherMetadata;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
+import market.api.contract.ResponsePayload;
 
 public interface ResponseBuilder {
 

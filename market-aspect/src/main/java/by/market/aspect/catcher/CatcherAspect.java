@@ -1,15 +1,14 @@
 package by.market.aspect.catcher;
 
-import by.market.api.contract.IRequest;
-import by.market.api.contract.IResponsePayload;
-import by.market.api.contract.IStatus;
-import by.market.aspect.annotation.ReqArg;
+import by.market.aspect.annotation.RequestArgument;
 import by.market.aspect.builder.ResponseBuilder;
-import by.market.aspect.records.CatcherMetadata;
+import by.market.aspect.service.CatcherMetadataBuilder;
 import by.market.aspect.service.MethodArgumentSearcher;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
 import lombok.RequiredArgsConstructor;
+import market.api.contract.IResponsePayload;
+import market.api.contract.IStatus;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,6 +27,8 @@ public class CatcherAspect {
 
     private final ResponseBuilder responseBuilder;
 
+    private final CatcherMetadataBuilder catcherMetadataBuilder;
+
     @Around(value = "@annotation(by.market.aspect.catcher.annotation.Catcher)")
     public Object catching(final ProceedingJoinPoint proceedingJoinPoint) {
         final var signature = (MethodSignature) proceedingJoinPoint.getSignature();
@@ -36,9 +37,9 @@ public class CatcherAspect {
         final var parameters = method.getParameters();
         final var joinPointArgs = proceedingJoinPoint.getArgs();
 
-        final var argument = methodArgumentSearcher.findByAnnotation(parameters, joinPointArgs, ReqArg.class);
+        final var argument = methodArgumentSearcher.findByAnnotation(parameters, joinPointArgs, RequestArgument.class);
 
-        final var metadata = this.getMetadata(argument);
+        final var metadata = catcherMetadataBuilder.build(argument);
 
         Object proceed;
 
@@ -55,10 +56,7 @@ public class CatcherAspect {
         }
 
         if (proceed instanceof final IResponsePayload<?> response) {
-            final ResultCode resultCode = Optional.ofNullable(response.getStatus())
-                    .map(IStatus::getCode)
-                    .map(ResultCode.Companion::findByCode)
-                    .orElse(ResultCode.SUCCESSFUL);
+            final var resultCode = this.getCodeOrDefault(response.getStatus(), ResultCode.SUCCESSFUL);
 
             return responseBuilder.buildSuccessful(response.getPayload(), resultCode, metadata);
         }
@@ -66,12 +64,12 @@ public class CatcherAspect {
         return proceed;
     }
 
-    private CatcherMetadata getMetadata(final Object object) {
-        CatcherMetadata.CatcherMetadataBuilder builder = CatcherMetadata.builder();
-        if (object instanceof final IRequest request) {
-            builder.rqId(request.getRqId());
-        }
-        return builder.build();
+
+    private ResultCode getCodeOrDefault(final IStatus status, final ResultCode defaultStatus) {
+        return Optional.ofNullable(status)
+                .map(IStatus::getCode)
+                .map(ResultCode.Companion::findByCode)
+                .orElse(defaultStatus);
     }
 
 }
