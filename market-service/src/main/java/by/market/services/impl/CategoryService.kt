@@ -1,7 +1,7 @@
 package by.market.services.impl
 
 import by.market.domain.system.Category
-import by.market.exception.DatabaseEntityNotFoundThrowable
+import by.market.exception.EntityNotFoundException
 import by.market.nosql.TreeCategory
 import by.market.repository.system.CategoryRepository
 import org.springframework.stereotype.Service
@@ -74,14 +74,14 @@ open class CategoryService(rep: CategoryRepository) :
         return repository.save(entity)
     }
 
-    @Throws(DatabaseEntityNotFoundThrowable::class)
+    @Throws(EntityNotFoundException::class)
     private fun getParentCategoryOrNull(category: Category?): Category? {
         val parentCategoryId = category?.id
 
         return if (parentCategoryId == null)
             null
         else findById(parentCategoryId).orElseThrow {
-            DatabaseEntityNotFoundThrowable("category_parent_not_found", arrayOf(parentCategoryId))
+            EntityNotFoundException("category_parent_not_found", arrayOf(parentCategoryId))
         }
     }
 

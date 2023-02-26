@@ -1,8 +1,8 @@
 package by.market.aspect.builder;
 
-import by.market.api.contract.IStatus;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
+import market.api.contract.IStatus;
 
 /**
  * The builder of response status

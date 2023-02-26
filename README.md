@@ -1,37 +1,28 @@
-# marketcatalog
+# MarketCatalog (mcat)
 
 Репозиторий содержит исходный код проекта интернет каталога для бизнеса в сфере продаж. 
 
 ### Technology Stack
 
 #### Programing language: 
-- **Kotlin** > 1.3.61 version
+- **Kotlin** > 1.8.0 version
 
 #### Frameworks:
-- **Spring Boot** > 2.2.0 version [data, test, web]
+- **Spring Boot** > 3.0.1 version [data, test, web]
 
 #### Documentation:
-- **Swagger** > 2.8.0 version
+- **Swagger** > 1.5.14 version
 - **Slf4j** logging
 
 #### Database:
 - **H2** > 1.4.200 version
 - **PostgreSQL** > 42.2.8 version
 
-### Application framework
-
-#### Modules:
-
-- **parent** - родительский pom module
-- **market-api** - дочерний module отвечающий за функциональную часть приложения
-- **asfor-parser** - дочерний module отвечающий за сбор информации с внешних ресурсов (https://asforos.by/)
-
 ### The application infrastructure
 
-- **nginx** - проксирующий сервис
-- **backend** - API интернет каталога
-- **ui** - пользовательский интерфейс
-- **postgres** - хранение данных
+- **nginx** - proxy service
+- **backend** - API market catalog
+- **postgres** - database
 
 ### Running
 
@@ -40,34 +31,60 @@
 ```
 .
 ..
-|- asforos-parser 
-|- docker
-|- json
-|- market-api
-|- .gitignore
-|- pom.xml
-```
-*Выполняем команду по сборке Docker images:*
-
-```cmd
-  ./docker/system.local.build.bat
-```
-
-*После успешной сборки запускаем инфраструктуру приложения:*
-
-```cmd
-  ./docker/system.local.run.bat
+|- docker / docker configuration
+|- market-api / root module / controllers
+|- market-api-contract / contract API market
+|- market-aspect / project AOP
+|- market-core / base constants / abstract records
+|- market-domain / domain entities
+|- market-exception / project exceptions
+|- market-facade / facade-services (user request -> user response)
+|- market-liquibase / database migration
+|- market-mapper / project mappers
+|- market-record / project entity records
+|- market-repository / domain repositories
+|- market-service / domain services
+|- .gitignore / ignored files and folders
+|- pom.xml / root pom
 ```
 
-*После выполненных с успехом команд, API приложения будет доступно [здесь](http://localhost:8080/api).* 
+### Contract API
 
-*Для того чтобы остановить приложение выполните команду:*
+Для отслеживания операций пользователя в системе разработан _мобильный_ контракт API
 
-```cmd
-  ./docker/system.local.down.bat
+Любой запрос пользователя должен сопровождаться соответствующими метаданными:
+
+**id** - идентификатор запроса / UUID<br>
+**sourceSystem** - именование системы запроса / frontend::mcat<br>
+**sourcePerformer** - система получатель запроса / backend::mcat
+
+Запросы всегда отправляются с использованием **protocol HTTP/ method POST**
+
+Результаты ответа не привязаны к **HTTP**. Результат ответа всегда будет иметь **HTTP status 200**
+
+Пример запроса для получения страницы ресурсов
+
+```json
+POST http://localhost:8080/api/portable/units
+Content-Type: application/json
+        
+{
+  "id": "2fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "sourceSystem": "frontend::mcat",
+  "sourcePerformer": "backend::mcat"
+}
 ```
 
-### Liquibase (Version control for your database)
+### Localization i18
+В запросах поддерживается локализация **EN / RU**. Сообщения статусов/ошибок локализованы.
+
+Управление локализацией доступно через **HTTP header**:
+
+```text
+Accept-Language: en/ru
+```
+
+### Liquibase (version control for your database)
 
 Миграция и версионирование базы данных выражено в модуле **market-liquibase**
 
@@ -84,46 +101,27 @@
 |- db
   |- changelog
     |- chnageSets
-      |- data
-      |- index
-      |- schema
-    |- changelog-master.xml
+      |- data / csv files
+      |- index / table indexes
+      |- schema / main schemes
+    |- changelog-master.xml / main migration catalog
 ```
-
-Описание структуры директорий:
-
-**db** - root директория
-
-**changelog** - директория содержит файлы включения всех changeSets
-
-**/db/changelog-master.xml** - main database-changelog инкапсулирует в себе все главные changeSets
-
-**changelog** - директория содержащая все changeSets
-
-**data** - директория содержащит changeSets нацеленных на изменение данных в БД
-
-**index** - директория содержащит changeSets нацеленных на изменение и сопровождение indexes
-
-**schema** - директория содержащит changeSets нацеленных на изменение схемы бызы данных (добавление или изменение таблиц)
 
 Правила добавления новых файлов для миграции БД:
 
-1) Именование файлов <год><месяц><день>_<час><минута>_<номер задачи>_<краткое описание>.xml;
-2) Точно понимать что выполняют changeSets в файле изменений, (меняют структуру БД, добавляют данные или добавляют indexes) и помещать в соответствующую папку;
+1) Именование файлов **_YYYYMMDD_HHMM_TASKNUMBER_DESCRIPTION.xml_**
+2) Точно понимать, что выполняют changeSets в файле изменений (меняют структуру БД, добавляют данные или добавляют indexes) и помещать в соответствующую папку
 3) Каждый changeSets имеет автора и идентификатор
-4) Идентификатор changeSet должен быть формата: <год><месяц><день>_<час><минута>
+4) Идентификатор changeSet должен быть формата: _**YYYYMMDD_HHMM**_
 
 Пример к пункту 1:
 
-[20200508_2251_117_CREATE_TABLE_TBX_RB_UNIT.xml](https://github.com/devpav/marketcatalog/tree/master/market-liquibase/src/main/resources/db/changelog/changeSets/schema/20200508_2251_117_CREATE_TABLE_TBX_RB_UNIT.xml)
-
-`2020 - год 05 - месяц 08 - день 22 - час 51 - минута 117 - номер задачи CREATE_TABLE_TBX_RB_UNIT - краткое описание`
+```text
+20200508_2251_117_CREATE_TABLE_TBX_RB_UNIT.xml
+```
 
 Пример к пункту 3:
 
 ```xml
 <changeSet author="devpav" id="20200508_2253"/>
 ```
-
-
-

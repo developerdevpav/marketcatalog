@@ -9,17 +9,17 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 internal class CategoryServiceTest {
 
-  @BeforeEach
-  fun setUp() {
-  }
+    @BeforeEach
+    fun setUp() {
+    }
 
-  @AfterEach
-  fun tearDown() {
-  }
+    @AfterEach
+    fun tearDown() {
+    }
 
-  @Test
-  fun test() {
+    @Test
+    fun test() {
 
-  }
+    }
 
 }

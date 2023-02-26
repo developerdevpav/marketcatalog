@@ -1,12 +1,11 @@
 package by.market.aspect.builder.impl;
 
-import by.market.api.contract.IStatus;
-import by.market.api.contract.ResponsePayload;
-import by.market.api.contract.Status;
 import by.market.aspect.builder.StatusBuilder;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
 import by.market.exception.utils.LocaleUtils;
+import market.api.contract.IStatus;
+import market.api.contract.Status;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;

@@ -1,13 +1,12 @@
 package by.market.aspect.builder.impl;
 
-import by.market.api.contract.IStatus;
 import by.market.aspect.builder.StatusBuilder;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
+import market.api.contract.IStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Locale;

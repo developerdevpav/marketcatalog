@@ -5,12 +5,12 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import java.util.*
 
-interface IReadonlyResource<TDTO> {
+interface IReadonlyResource<TRecord> {
 
-    fun findAll(): ResponseEntity<MutableList<TDTO>>
+    fun findAll(): ResponseEntity<MutableList<TRecord>>
 
-    fun findPage(pageable: Pageable): ResponseEntity<Page<TDTO>>
+    fun findPage(pageable: Pageable): ResponseEntity<Page<TRecord>>
 
-    fun findById(id: UUID): ResponseEntity<TDTO>
+    fun findById(id: UUID): ResponseEntity<TRecord>
 
 }

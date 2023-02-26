@@ -11,6 +11,8 @@ import by.market.services.impl.CategoryService
 import by.market.services.impl.ContainerMetadataService
 import by.market.services.impl.DataTypeService
 import by.market.services.impl.EntityMetadataService
+import market.api.contract.RequestPayload
+import market.api.contract.ResponsePayload
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -36,6 +38,7 @@ class CategoryProductFacade(
     fun findTreeCategories(): MutableList<TreeCategoryRecord> {
         return treeCategoryMapper.toMap(entityService.findTreeCategory()).toMutableList()
     }
+
 }
 
 

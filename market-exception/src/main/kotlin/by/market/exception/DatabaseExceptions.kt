@@ -26,7 +26,7 @@ open class ApiException(
 
 }
 
-open class DatabaseEntityNotFoundThrowable(
+open class EntityNotFoundException(
     localeCode: String? = null,
     args: Array<Any> = arrayOf(),
     code: ResultCode = ResultCode.DATA_NOT_FOUND

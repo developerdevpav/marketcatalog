@@ -1,14 +1,14 @@
 package by.market.aspect.catcher;
 
-import by.market.api.contract.IResponsePayload;
-import by.market.api.contract.IStatus;
-import by.market.aspect.annotation.ReqArg;
+import by.market.aspect.annotation.RequestArgument;
 import by.market.aspect.builder.ResponseBuilder;
 import by.market.aspect.service.CatcherMetadataBuilder;
 import by.market.aspect.service.MethodArgumentSearcher;
 import by.market.core.ResultCode;
 import by.market.exception.ApiException;
 import lombok.RequiredArgsConstructor;
+import market.api.contract.IResponsePayload;
+import market.api.contract.IStatus;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -37,7 +37,7 @@ public class CatcherAspect {
         final var parameters = method.getParameters();
         final var joinPointArgs = proceedingJoinPoint.getArgs();
 
-        final var argument = methodArgumentSearcher.findByAnnotation(parameters, joinPointArgs, ReqArg.class);
+        final var argument = methodArgumentSearcher.findByAnnotation(parameters, joinPointArgs, RequestArgument.class);
 
         final var metadata = catcherMetadataBuilder.build(argument);
 
@@ -57,17 +57,19 @@ public class CatcherAspect {
 
         if (proceed instanceof final IResponsePayload<?> response) {
             final var resultCode = this.getCodeOrDefault(response.getStatus(), ResultCode.SUCCESSFUL);
+
             return responseBuilder.buildSuccessful(response.getPayload(), resultCode, metadata);
         }
 
         return proceed;
     }
 
+
     private ResultCode getCodeOrDefault(final IStatus status, final ResultCode defaultStatus) {
-        return Optional.of(status)
+        return Optional.ofNullable(status)
                 .map(IStatus::getCode)
                 .map(ResultCode.Companion::findByCode)
-                .orElse(ResultCode.SUCCESSFUL);
+                .orElse(defaultStatus);
     }
 
 }
